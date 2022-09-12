@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>352940719784-lk0hpkg42pa6begji6tupsrhc76llipe.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.352940719784-lk0hpkg42pa6begji6tupsrhc76llipe</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBWvbrV8UWIwuRWvgukVH4s-jBRasNJT9I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>352940719784</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.vendorApp</string>
+	<key>PROJECT_ID</key>
+	<string>mosaic-vendor-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mosaic-vendor-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:352940719784:ios:a7a6671052d1ada51acc9d</string>
+</dict>
+</plist>
