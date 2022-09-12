@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vendor_app/utils/my_card.dart';
 
 import '../forms/add_update_business.dart';
 import '../services/cloud_services.dart';

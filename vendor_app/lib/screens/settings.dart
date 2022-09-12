@@ -7,6 +7,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:vendor_app/screens/category_setting.dart';
 
 import 'business_setting.dart';
+import 'promotion_banners.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -36,7 +37,7 @@ class SettingScreen extends StatelessWidget {
                 }),
               ),
               SettingsTile.navigation(
-                leading: Icon(Icons.business),
+                leading: Icon(Icons.category),
                 title: Text('Category'),
                 value: Text('Add | Update | Remove'),
                 onPressed: ((context) {
@@ -44,6 +45,17 @@ class SettingScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CategorySettingScreen()));
+                }),
+              ),
+              SettingsTile.navigation(
+                leading: Icon(Icons.view_carousel),
+                title: Text('Promotion Banners'),
+                value: Text('Add | Update | Remove'),
+                onPressed: ((context) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PromotionBannerSetting()));
                 }),
               ),
               SettingsTile.switchTile(
