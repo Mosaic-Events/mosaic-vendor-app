@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:vendor_app/forms/add_update_business.dart';
 
 import '../services/cloud_services.dart';
 
@@ -85,6 +86,19 @@ class _MyCardState extends State<MyCard> {
                             fontWeight: FontWeight.bold,
                           ),
                           textScaleFactor: 1.25,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddOrUpdateBusiness(
+                                  businessId: widget.businessId,
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.edit),
                         ),
                         IconButton(
                           onPressed: () {

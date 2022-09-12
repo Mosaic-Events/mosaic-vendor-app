@@ -3,7 +3,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vendor_app/screens/settings.dart';
+import 'package:vendor_app/services/auth_service.dart';
 
 import '../utils/bottom_appbar.dart';
 import '../utils/service_card.dart';
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Screen"),
@@ -60,14 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Full Name",
+                          authService.currentUser!.displayName!,
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          "Username",
+                          authService.currentUser!.email!,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

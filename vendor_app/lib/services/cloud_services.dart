@@ -33,6 +33,10 @@ class CloudService {
   getCategoryById({required String cateId}) =>
       categoryCollection.doc(cateId).get();
 
+  // GET: Business By ID
+  getBusinessById({required String businessId}) =>
+      businessCollection.doc(businessId).get();
+
   // ADD: Category to firestore
   Future addCategory(String categoryName) async {
     final cateId =
@@ -93,6 +97,24 @@ class CloudService {
       UploadImage.uploadBusinessImages(context, businessId, image);
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
+    });
+  }
+
+  // UPDATE: Business to firestore
+  Future updateBusiness({
+    required String businessId,
+    required String businessName,
+    required String initialPrice,
+    required String businessCategory,
+  }) async {
+    await businessCollection.doc(businessId).update({
+      'businessName': businessName,
+      'businessCategory': businessCategory,
+      'initialPrice': initialPrice,
+    }).whenComplete(() {
+      Fluttertoast.showToast(msg: "Business Updated");
+    }).catchError((error) {
+      Fluttertoast.showToast(msg: "Error occured: $error");
     });
   }
 }
