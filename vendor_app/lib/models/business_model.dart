@@ -3,18 +3,18 @@
 
 class BusinessModel {
   String? owner;
-  String? busiId;
-  String? busiName;
+  String? businessId;
+  String? businessName;
   String? initialPrice;
-  String? busiCategory;
+  String? businessCategory;
   List? images;
   DateTime? joiningDate;
   BusinessModel({
     this.owner,
-    this.busiId,
-    this.busiName,
+    this.businessId,
+    this.businessName,
     this.initialPrice,
-    this.busiCategory,
+    this.businessCategory,
     this.joiningDate,
     this.images,
   });
@@ -41,10 +41,10 @@ class BusinessModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'owner': owner,
-      'busiId': busiId,
-      'busiName': busiName,
+      'businessId': businessId,
+      'businessName': businessName,
       'initialPrice': initialPrice,
-      'busiCategory': busiCategory,
+      'businessCategory': businessCategory,
       'images': images,
       'joiningDate': joiningDate?.millisecondsSinceEpoch,
     };

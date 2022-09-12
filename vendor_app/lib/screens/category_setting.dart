@@ -21,6 +21,8 @@ class _CategorySettingScreenState extends State<CategorySettingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Category'),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: cloudService.categoryCollection.snapshots(),

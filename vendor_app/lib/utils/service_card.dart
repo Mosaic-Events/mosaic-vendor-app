@@ -58,9 +58,12 @@ class ServiceCard extends StatelessWidget {
               ),
             ),
           ),
-          const Icon(
-            Icons.favorite_outline,
-            size: 16.0,
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: const Icon(
+              Icons.favorite_outline,
+              size: 16.0,
+            ),
           ),
         ],
       ),
