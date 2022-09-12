@@ -57,7 +57,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                             image:
-                                AssetImage("assets/images/restaurants/r2.jpg"),
+                                AssetImage("assets/images/placeholder02.jpg"),
                             fit: BoxFit.fill),
                       ),
                     );

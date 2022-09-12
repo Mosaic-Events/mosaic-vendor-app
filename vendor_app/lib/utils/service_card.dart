@@ -20,7 +20,7 @@ class ServiceCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/images/restaurants/r1.jpg",
+                    "assets/images/placeholder01.jpg",
                   ),
                   fit: BoxFit.fill,
                 ),
@@ -31,25 +31,30 @@ class ServiceCard extends StatelessWidget {
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Service Title",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20.0,
+              child: SizedBox(
+                height: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Service Title",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Service Description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.grey,
+                    Text(
+                      "Service Description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.grey,
+                      ),
+                      textAlign: TextAlign.justify,
                     ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -60,6 +65,5 @@ class ServiceCard extends StatelessWidget {
         ],
       ),
     );
-    
   }
 }

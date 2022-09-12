@@ -47,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/default/m.png'),
+                    backgroundImage:
+                        AssetImage('assets/defaults/profile_pic.png'),
                     radius: 50,
                   ),
                   Padding(
