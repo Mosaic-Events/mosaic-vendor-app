@@ -1,18 +1,17 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:mosaic_event/models/business_model.dart';
 
-// import 'package:mosaic_event/utils/upload_image.dart';
-
+import '../models/business_model.dart';
 import '../models/category_model.dart';
+import '../utils/upload_image.dart';
 
 class CloudService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // GET: Users Collection
   CollectionReference get usersCollection =>
@@ -51,9 +50,6 @@ class CloudService {
         .set(categoryModel.toMap())
         .whenComplete(() {
       Fluttertoast.showToast(msg: "Category $categoryName Added");
-      log("Category $categoryName Added");
-    }).catchError((error) {
-      Fluttertoast.showToast(msg: "Error occured: $error");
     });
   }
 
@@ -61,7 +57,7 @@ class CloudService {
   Future updateCategory(
       {required String cateId, required String categoryName}) async {
     await categoryCollection.doc(cateId).update({
-      'cateName': categoryName,
+      'cate_name': categoryName,
     }).whenComplete(() {
       Fluttertoast.showToast(msg: "Category Updated");
     }).catchError((error) {
@@ -70,31 +66,31 @@ class CloudService {
   }
 
   // ADD: Business to firestore
-  // Future addBusiness(
-  //     {required String businessName,
-  //     required String initialPrice,
-  //     required String categoryId,
-  //     required BuildContext context,
-  //     required File image}) async {
-  //   final businessId =
-  //       'busi_${DateTime.now().millisecondsSinceEpoch}'; // For unique id
+  Future addBusiness(
+      {required String businessName,
+      required String initialPrice,
+      required String categoryId,
+      required BuildContext context,
+      required File image}) async {
+    final businessId =
+        'busi_${DateTime.now().millisecondsSinceEpoch}'; // For unique id
 
-  //   // calling our cate_model
-  //   BusinessModel businessModel = BusinessModel();
-  //   businessModel.owner = _auth.currentUser!.uid;
-  //   businessModel.busiId = businessId;
-  //   businessModel.busiName = businessName;
-  //   businessModel.initialPrice = initialPrice;
-  //   businessModel.busiCategory = categoryId;
-  //   businessModel.joiningDate = DateTime.now();
+    // calling our cate_model
+    BusinessModel businessModel = BusinessModel();
+    businessModel.owner = _auth.currentUser!.uid;
+    businessModel.busiId = businessId;
+    businessModel.busiName = businessName;
+    businessModel.initialPrice = initialPrice;
+    businessModel.busiCategory = categoryId;
+    businessModel.joiningDate = DateTime.now();
 
-  //   await businessCollection
-  //       .doc(businessId)
-  //       .set(businessModel.toMap())
-  //       .whenComplete(() {
-  //     UploadImage.uploadBusinessImages(context, businessId, image);
-  //   }).catchError((e) {
-  //     Fluttertoast.showToast(msg: e);
-  //   });
-  // }
+    await businessCollection
+        .doc(businessId)
+        .set(businessModel.toMap())
+        .whenComplete(() {
+      UploadImage.uploadBusinessImages(context, businessId, image);
+    }).catchError((e) {
+      Fluttertoast.showToast(msg: e);
+    });
+  }
 }

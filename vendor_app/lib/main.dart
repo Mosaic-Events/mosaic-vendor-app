@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/firebase_options.dart';
 import 'package:vendor_app/screens/home_screen.dart';
+import 'package:vendor_app/screens/wrapper.dart';
 
+import 'services/auth_service.dart';
 import 'services/cloud_services.dart';
 
 void main() async {
@@ -21,9 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Provider<AuthService>(
-        //   create: (_) => AuthService(),
-        // ),
+        Provider<AuthService>(
+          create: (_) => AuthService(),
+        ),
         Provider<CloudService>(
           create: (_) => CloudService(),
         )
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home: const HomeScreen(),
+        home: const Wrapper(),
       ),
     );
   }

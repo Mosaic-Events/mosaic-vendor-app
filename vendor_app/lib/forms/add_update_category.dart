@@ -78,7 +78,7 @@ class AddOrUpdateCategory extends StatelessWidget {
                       child: const Text(
                         "ADD",
                         textAlign: TextAlign.center,
-                        style:  TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
@@ -105,7 +105,7 @@ class AddOrUpdateCategory extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.done) {
                         Map<String, dynamic> data =
                             snapshot.data!.data() as Map<String, dynamic>;
-                        updateName = data['cate_name'];
+                        updateName = data['cateName'];
                         return Column(
                           children: [
                             TextFormField(
@@ -155,7 +155,7 @@ class AddOrUpdateCategory extends StatelessWidget {
                               child: const Text(
                                 "UPDATE",
                                 textAlign: TextAlign.center,
-                                style:  TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
