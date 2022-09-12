@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:vendor_app/screens/settings.dart';
 
 import '../utils/bottom_appbar.dart';
 import '../utils/service_card.dart';
@@ -28,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () {
-                log('setting pressed');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingScreen()));
               },
               child: Icon(
                 Icons.settings,
