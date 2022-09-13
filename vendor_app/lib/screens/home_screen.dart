@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:vendor_app/screens/settings.dart';
 import 'package:vendor_app/services/auth_service.dart';
 
-import '../utils/bottom_appbar.dart';
 import '../utils/service_card.dart';
 import 'service_detail_screen.dart';
 

@@ -49,7 +49,7 @@ class _PromotionBannerSettingState extends State<PromotionBannerSetting> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               if (data.isNotEmpty) {
-                print("Data: " + data.length.toString());
+                print("Data: ${data.length}");
               }
 
               return Padding(

@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/firebase_options.dart';
-import 'package:vendor_app/screens/home_screen.dart';
-import 'package:vendor_app/screens/wrapper.dart';
+import 'package:vendor_app/screens/aaaa.dart';
+import 'package:vendor_app/services/connectivity_provider.dart';
 
 import 'services/auth_service.dart';
 import 'services/cloud_services.dart';
@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider<CloudService>(
           create: (_) => CloudService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ConnectivityProvider(),
         )
       ],
       child: MaterialApp(
@@ -36,7 +39,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home: const Wrapper(),
+        home: const CheckInternetConnection(),
+        // home: const Wrapper(),
       ),
     );
   }

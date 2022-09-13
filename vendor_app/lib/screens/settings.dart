@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
