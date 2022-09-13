@@ -31,9 +31,8 @@ class UploadImage {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     Reference reference = FirebaseStorage.instance
         .ref()
-        .child('users')
+        .child('users_profile_pic')
         .child(userId)
-        .child('profile_pic')
         .child("img_$imgId");
 
     await reference.putFile(image!);
@@ -107,10 +106,9 @@ class UploadImage {
 
     // cloud firestore
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    await firebaseFirestore
-        .collection("businesses")
-        .doc(businessId)
-        .update({'images': [downloadURL]}).whenComplete(() {
+    await firebaseFirestore.collection("businesses").doc(businessId).update({
+      'images': [downloadURL]
+    }).whenComplete(() {
       Fluttertoast.showToast(msg: "Business Added :)");
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
