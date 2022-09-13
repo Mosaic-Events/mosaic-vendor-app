@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/firebase_options.dart';
-import 'package:vendor_app/screens/aaaa.dart';
+import 'package:vendor_app/screens/check_connectivity_first.dart';
 import 'package:vendor_app/services/connectivity_provider.dart';
 
 import 'services/auth_service.dart';
@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.brown,
         ),
         home: const CheckInternetConnection(),
-        // home: const Wrapper(),
       ),
     );
   }

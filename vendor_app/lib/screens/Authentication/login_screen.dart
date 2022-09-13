@@ -150,20 +150,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  // login function
-  // void signIn(String email, String password) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     await _auth
-  //         .signInWithEmailAndPassword(email: email, password: password)
-  //         .then((uid) => {
-  //               Fluttertoast.showToast(msg: "Login Successfull"),
-  //               Navigator.of(context).pushReplacement(
-  //                   MaterialPageRoute(builder: (context) => const HomePage()))
-  //             })
-  //         .catchError((e) {
-  //       Fluttertoast.showToast(msg: e!.message);
-  //     });
-  //   }
-  // }
 }

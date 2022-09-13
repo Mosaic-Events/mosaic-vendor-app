@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/user_model.dart';
 
@@ -61,8 +62,10 @@ class AuthService {
     return _userFromFirebase(credential.user);
   }
 
-  // sign out
+  // FIXME: sign out
   Future<void> signOut() async {
-    return await _auth.signOut();
+    return await _auth
+        .signOut()
+        .whenComplete(() => Fluttertoast.showToast(msg: "You are Signed Out"));
   }
 }

@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/screens/profile_screen.dart';
-import 'package:vendor_app/screens/settings.dart';
 import 'package:vendor_app/services/auth_service.dart';
 
 import '../utils/service_card.dart';

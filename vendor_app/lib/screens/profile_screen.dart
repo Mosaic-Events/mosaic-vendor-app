@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vendor_app/screens/my_account_screen.dart';
+import 'package:vendor_app/screens/settings.dart';
 
+import '../services/auth_service.dart';
 import '../utils/profile_menu.dart';
 import '../utils/profile_pic.dart';
 
@@ -9,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
@@ -25,13 +30,19 @@ class ProfileScreen extends StatelessWidget {
               leading: Icons.account_circle_rounded,
               title: "My Account",
               trailing: Icons.arrow_forward,
-              press: () => {},
+              press: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyAccountScreen()))
+              },
             ),
             ProfileMenu(
               leading: Icons.settings_rounded,
               title: "Setting",
               trailing: Icons.arrow_forward,
-              press: () => {},
+              press: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingScreen()))
+              },
             ),
             ProfileMenu(
               leading: Icons.help_center_rounded,
@@ -42,7 +53,9 @@ class ProfileScreen extends StatelessWidget {
             ProfileMenu(
               leading: Icons.logout_rounded,
               title: "Logout",
-              press: () => {},
+              press: () => {
+                authService.signOut(),
+              },
             ),
           ],
         ),
