@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendor_app/screens/profile_screen.dart';
 import 'package:vendor_app/screens/settings.dart';
 import 'package:vendor_app/services/auth_service.dart';
 
@@ -32,10 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingScreen()));
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
-              child: Icon(
-                Icons.settings,
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/defaults/logo.png'))),
               ),
             ),
           )
