@@ -30,7 +30,6 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
   final businessFormKey = GlobalKey<FormState>();
   final updateBusinessFormKey = GlobalKey<FormState>();
 
-  File? _image;
 
   // Update fields
   String? updateName;
@@ -166,25 +165,25 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // Images
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () {
-                                imagePickerMethod();
-                              },
-                              child: const Text(
-                                "Select Images",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
+                            // ElevatedButton(
+                            //   style: ElevatedButton.styleFrom(
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(10.0),
+                            //     ),
+                            //   ),
+                            //   onPressed: () {
+                            //     imagePickerMethod();
+                            //   },
+                            //   child: const Text(
+                            //     "Select Images",
+                            //     textAlign: TextAlign.center,
+                            //     style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontWeight: FontWeight.w500,
+                            //     ),
+                            //   ),
+                            // ),
+                            // const SizedBox(width: 10),
                             // Submit Button
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -199,7 +198,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                     businessName: businessController.text,
                                     initialPrice: priceController.text,
                                     categoryId: _selectedCategory!,
-                                    image: _image!,
+                                    // image: _image!,
                                   );
                                   businessController.clear();
                                   Navigator.of(context).pop();
@@ -216,24 +215,24 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
-                        if (_image != null)
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: Image.file(_image!),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        // const SizedBox(height: 10),
+                        // if (_image != null)
+                        //   Container(
+                        //     height: 200,
+                        //     decoration: BoxDecoration(
+                        //       border: Border.all(color: Colors.black),
+                        //       borderRadius: BorderRadius.circular(10),
+                        //     ),
+                        //     child: Center(
+                        //       child: Column(
+                        //         children: [
+                        //           Expanded(
+                        //             child: Image.file(_image!),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
                       ],
                     ),
                   ),
@@ -382,7 +381,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      imagePickerMethod();
+                                      // imagePickerMethod();
                                     },
                                     child: const Text(
                                       "Select Images",
@@ -429,24 +428,24 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
-                              if (_image != null)
-                                Container(
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Image.file(_image!),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              // const SizedBox(height: 10),
+                              // if (_image != null)
+                              //   Container(
+                              //     height: 200,
+                              //     decoration: BoxDecoration(
+                              //       border: Border.all(color: Colors.black),
+                              //       borderRadius: BorderRadius.circular(10),
+                              //     ),
+                              //     child: Center(
+                              //       child: Column(
+                              //         children: [
+                              //           Expanded(
+                              //             child: Image.file(_image!),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
                             ],
                           );
                         }
@@ -457,16 +456,5 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                       }),
                 ),
         ));
-  }
-
-  Future imagePickerMethod() async {
-    final imagePicker = ImagePicker();
-    final pick = await imagePicker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 50,
-    );
-    setState(() {
-      _image = File(pick!.path);
-    });
   }
 }

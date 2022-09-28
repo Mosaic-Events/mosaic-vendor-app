@@ -76,7 +76,7 @@ class CloudService {
     required String businessName,
     required String initialPrice,
     required String categoryId,
-    required File image,
+    // List<String>? images,
   }) async {
     final businessId =
         'busi_${DateTime.now().millisecondsSinceEpoch}'; // For unique id
@@ -88,13 +88,14 @@ class CloudService {
     businessModel.businessName = businessName;
     businessModel.initialPrice = initialPrice;
     businessModel.businessCategory = categoryId;
+    businessModel.images = [];
     businessModel.joiningDate = DateTime.now();
 
     await businessCollection
         .doc(businessId)
         .set(businessModel.toMap())
         .whenComplete(() {
-      UploadImage.uploadBusinessImages(context, businessId, image);
+      // UploadImage.uploadBusinessImages(context, businessId, image);
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });

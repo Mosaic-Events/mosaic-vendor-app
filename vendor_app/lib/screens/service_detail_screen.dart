@@ -1,11 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/services/cloud_services.dart';
 
 import '../utils/my_loading_widget.dart';
+import '../utils/upload_image.dart';
 
 class ServiceDetailScreen extends StatefulWidget {
   final String serviceId;
@@ -60,6 +66,25 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                     ),
                     textAlign: TextAlign.justify,
                   ),
+                  // Images
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      imagePickerMethod(data['businessId']);
+                    },
+                    child: const Text(
+                      "Select Images",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                   Divider(
                     thickness: 1,
                   ),
@@ -75,7 +100,6 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                         itemCount: data['images'].length,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            
                             decoration: BoxDecoration(
                               // borderRadius: BorderRadius.circular(0.0),
                               image: DecorationImage(
@@ -94,5 +118,20 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         ),
       ),
     );
+  }
+
+  Future imagePickerMethod(String businessId) async {
+    final imagePicker = ImagePicker();
+    final pick = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+    if (pick != null) {
+      log(pick.path);
+      File image = File(pick.path);
+      UploadImage.uploadBusinessImages(context, businessId, image);
+    } else {
+      Fluttertoast.showToast(msg: 'No file selected');
+    }
   }
 }

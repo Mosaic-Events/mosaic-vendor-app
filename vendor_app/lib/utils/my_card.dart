@@ -47,7 +47,11 @@ class _MyCardState extends State<MyCard> {
                 color: Colors.amber,
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl[0]), fit: BoxFit.cover),
+                    image: widget.imageUrl.isNotEmpty
+                        ? NetworkImage(widget.imageUrl[0])
+                        : AssetImage('assets/images/placeholder01.jpg')
+                            as ImageProvider,
+                    fit: BoxFit.cover),
               ),
               child: const Padding(
                 padding: EdgeInsets.all(8),
@@ -79,13 +83,6 @@ class _MyCardState extends State<MyCard> {
                       alignment: MainAxisAlignment.spaceBetween,
                       buttonPadding: EdgeInsets.zero,
                       children: [
-                        // Text(
-                        //   "Rs. ${widget.price}",
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        //   textScaleFactor: 1.25,
-                        // ),
                         IconButton(
                           onPressed: () {
                             Navigator.push(
