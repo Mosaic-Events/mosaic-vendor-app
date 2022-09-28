@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ServiceDetailScreen(
-                                    serviceTitle: "Service Title",
+                                    serviceId: "Service Title",
                                   )));
                     },
                     child: ServiceCard(),

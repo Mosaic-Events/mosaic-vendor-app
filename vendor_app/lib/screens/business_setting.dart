@@ -42,12 +42,11 @@ class BusinessSettingScreen extends StatelessWidget {
                   final imageUrl = snapshot.data!.docs[index]['images'];
                   return InkWell(
                     onTap: () {
-                      log("Service $index pressed");
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ServiceDetailScreen(
-                                    serviceTitle: "Service Title",
+                                    serviceId: businessId,
                                   )));
                     },
                     child: MyCard(
