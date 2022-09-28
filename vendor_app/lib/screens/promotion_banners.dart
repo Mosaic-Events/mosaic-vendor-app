@@ -48,9 +48,6 @@ class _PromotionBannerSettingState extends State<PromotionBannerSetting> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-              if (data.isNotEmpty) {
-                print("Data: ${data.length}");
-              }
 
               return Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10, right: 10),

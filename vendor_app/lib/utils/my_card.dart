@@ -40,27 +40,26 @@ class _MyCardState extends State<MyCard> {
         ),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.40,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: NetworkImage(widget.imageUrl[0]),
-                      fit: BoxFit.cover),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8),
-                ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.40,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: NetworkImage(widget.imageUrl[0]), fit: BoxFit.cover),
               ),
+              child: const Padding(
+                padding: EdgeInsets.all(8),
+              ),
+            ),
+            SizedBox(
+              width: 10,
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     widget.title,
@@ -80,13 +79,13 @@ class _MyCardState extends State<MyCard> {
                       alignment: MainAxisAlignment.spaceBetween,
                       buttonPadding: EdgeInsets.zero,
                       children: [
-                        Text(
-                          "Rs. ${widget.price}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textScaleFactor: 1.25,
-                        ),
+                        // Text(
+                        //   "Rs. ${widget.price}",
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        //   textScaleFactor: 1.25,
+                        // ),
                         IconButton(
                           onPressed: () {
                             Navigator.push(

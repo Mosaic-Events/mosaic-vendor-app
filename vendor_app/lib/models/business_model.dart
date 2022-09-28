@@ -7,7 +7,7 @@ class BusinessModel {
   String? businessName;
   String? initialPrice;
   String? businessCategory;
-  List? images;
+  List<String>? images;
   DateTime? joiningDate;
   BusinessModel({
     this.owner,

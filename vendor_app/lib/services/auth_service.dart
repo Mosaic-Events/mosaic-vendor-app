@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -43,23 +45,41 @@ class AuthService {
   }
 
   // sign in with email and password
-  Future<UserModel?> signIn(String email, String password) async {
-    final credential = await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return _userFromFirebase(credential.user);
+  Future<void> signIn(String email, String password) async {
+    try {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on auth.FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Fluttertoast.showToast(msg: 'No user found.');
+      } else if (e.code == 'wrong-password') {
+        Fluttertoast.showToast(msg: 'Wrong password.');
+      } else {
+        log('SignIn Error: ${e.code}');
+      }
+    }
   }
 
   // register with email and password
-  Future<UserModel?> createUserWithEmailAndPassword(
+  Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
-    final credential = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
-    return _userFromFirebase(credential.user);
+    try {
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on auth.FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        Fluttertoast.showToast(
+            msg: 'The account already exists for that email.');
+      } else {
+        log('SignUp Error: ${e.code}');
+      }
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   // FIXME: sign out
