@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadImage {
+  // List<XFile>? selectedImages = [];
+
   // Upload Profile Image
   static uploadProfileImage() async {
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -89,29 +92,48 @@ class UploadImage {
   }
 
   // Upload Business Images
-  static uploadBusinessImages(BuildContext context, businessId, image) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final imageId =
-        'ban_${DateTime.now().millisecondsSinceEpoch}'; // For unique name
-    String? downloadURL;
-    Reference reference = FirebaseStorage.instance
-        .ref()
-        .child('business_images')
-        .child(userId)
-        .child(businessId)
-        .child(imageId);
+  static uploadBusinessImages(businessId) async {
+    List<String> downloadUrls = [];
+    final imagePicker = ImagePicker();
 
-    await reference.putFile(image!);
-    downloadURL = await reference.getDownloadURL();
+    List<XFile>? pickedImages = await imagePicker.pickMultiImage(
+      imageQuality: 50,
+    );
+
+    if (pickedImages != null) {
+      for (int i = 0; i < pickedImages.length; i++) {
+        File image = File(pickedImages[i].path);
+        final userId = FirebaseAuth.instance.currentUser!.uid;
+        // For unique name
+        final imageId = 'ban_${DateTime.now().millisecondsSinceEpoch}';
+        String? downloadURL;
+        Reference reference = FirebaseStorage.instance
+            .ref()
+            .child('business_images')
+            .child(userId)
+            .child(businessId)
+            .child(imageId);
+
+        await reference.putFile(image);
+        downloadURL = await reference.getDownloadURL();
+        downloadUrls.add(downloadURL);
+      }
+    } else {
+      Fluttertoast.showToast(msg: 'No file selected');
+    }
 
     // cloud firestore
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    await firebaseFirestore.collection("businesses").doc(businessId).update({
-      'images': [downloadURL]
-    }).whenComplete(() {
-      Fluttertoast.showToast(msg: "Business Added :)");
+    await firebaseFirestore
+        .collection("businesses")
+        .doc(businessId)
+        .update({'images': downloadUrls}).whenComplete(() {
+      Fluttertoast.showToast(
+          msg: "Business Images Added", toastLength: Toast.LENGTH_LONG);
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });
   }
+
+  Future imagePickerMethod(String businessId) async {}
 }

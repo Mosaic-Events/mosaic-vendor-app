@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'dart:developer';
 import 'dart:io';
@@ -74,10 +74,10 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                     ),
                     onPressed: () {
-                      imagePickerMethod(data['businessId']);
+                      UploadImage.uploadBusinessImages(data['businessId']);
                     },
                     child: const Text(
-                      "Select Images",
+                      "Upload Images",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -120,18 +120,18 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     );
   }
 
-  Future imagePickerMethod(String businessId) async {
-    final imagePicker = ImagePicker();
-    final pick = await imagePicker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 50,
-    );
-    if (pick != null) {
-      log(pick.path);
-      File image = File(pick.path);
-      UploadImage.uploadBusinessImages(context, businessId, image);
-    } else {
-      Fluttertoast.showToast(msg: 'No file selected');
-    }
-  }
+  // Future imagePickerMethod(String businessId) async {
+  //   final imagePicker = ImagePicker();
+  //   final pick = await imagePicker.pickImage(
+  //     source: ImageSource.gallery,
+  //     imageQuality: 50,
+  //   );
+  //   if (pick != null) {
+  //     log(pick.path);
+  //     File image = File(pick.path);
+  //     UploadImage.uploadBusinessImages(context, businessId, image);
+  //   } else {
+  //     Fluttertoast.showToast(msg: 'No file selected');
+  //   }
+  // }
 }

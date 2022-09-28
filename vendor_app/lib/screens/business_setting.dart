@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../forms/add_update_business.dart';
+import '../services/auth_service.dart';
 import '../services/cloud_services.dart';
 import '../utils/my_card.dart';
 import 'service_detail_screen.dart';
@@ -17,6 +18,7 @@ class BusinessSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cloudService = Provider.of<CloudService>(context);
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Business'),
@@ -24,7 +26,9 @@ class BusinessSettingScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: cloudService.businessCollection.snapshots(),
+        stream: cloudService.businessCollection
+            .where('owner', isEqualTo: authService.userID())
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text("Something went wrong! ${snapshot.error}");
