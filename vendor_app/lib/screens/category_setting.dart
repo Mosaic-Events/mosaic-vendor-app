@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 import 'package:vendor_app/forms/add_update_category.dart';
@@ -42,15 +43,10 @@ class _CategorySettingScreenState extends State<CategorySettingScreen> {
                       children: [
                         IconButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddOrUpdateCategory(
+                              Get.to(() => AddOrUpdateCategory(
                                     cateId: snapshot.data!.docs[index]
                                         ['cateId'],
-                                  ),
-                                ),
-                              );
+                                  ));
                             },
                             icon: const Icon(
                               Icons.edit,
@@ -87,10 +83,7 @@ class _CategorySettingScreenState extends State<CategorySettingScreen> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddOrUpdateCategory()),
-            );
+            Get.to(() => AddOrUpdateCategory());
           },
           child: const Icon(Icons.add)),
     );

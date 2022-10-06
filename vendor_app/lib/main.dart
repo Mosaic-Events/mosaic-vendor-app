@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/firebase_options.dart';
-import 'package:vendor_app/screens/check_connectivity_first.dart';
 import 'package:vendor_app/services/connectivity_provider.dart';
 
 import 'services/auth_service.dart';
@@ -12,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  ).then((value) => Get.put(AuthController()));
   runApp(const MyApp());
 }
 
@@ -23,9 +25,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(),
-        ),
         Provider<CloudService>(
           create: (_) => CloudService(),
         ),
@@ -33,13 +32,32 @@ class MyApp extends StatelessWidget {
           create: (context) => ConnectivityProvider(),
         )
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home: const CheckInternetConnection(),
+        home: const SplashScreen(),
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 50), () {});
+    return Scaffold(
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage("assets/defaults/logo.png"),
+          )),
+        ),
       ),
     );
   }

@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:vendor_app/screens/business_setting.dart';
 import 'package:vendor_app/screens/category_setting.dart';
-
-import 'business_setting.dart';
-import 'promotion_banners.dart';
+import 'package:vendor_app/screens/promotion_banners.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -15,53 +12,44 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Setting Screen"),
+        title: const Text("Setting Screen"),
         centerTitle: true,
         elevation: 0,
       ),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: Text('Common'),
+            title: const Text('Common'),
             tiles: <SettingsTile>[
               SettingsTile.navigation(
-                leading: Icon(Icons.business),
-                title: Text('Business'),
-                value: Text('Add | Update | Remove'),
+                leading: const Icon(Icons.business),
+                title: const Text('Business'),
+                value: const Text('Add | Update | Remove'),
                 onPressed: ((context) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BusinessSettingScreen()));
+                  Get.to(() => const BusinessSettingScreen());
                 }),
               ),
               SettingsTile.navigation(
-                leading: Icon(Icons.category),
-                title: Text('Category'),
-                value: Text('Add | Update | Remove'),
+                leading: const Icon(Icons.category),
+                title: const Text('Category'),
+                value: const Text('Add | Update | Remove'),
                 onPressed: ((context) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CategorySettingScreen()));
+                  Get.to(() => const CategorySettingScreen());
                 }),
               ),
               SettingsTile.navigation(
-                leading: Icon(Icons.view_carousel),
-                title: Text('Promotion Banners'),
-                value: Text('Add | Update | Remove'),
+                leading: const Icon(Icons.view_carousel),
+                title: const Text('Promotion Banners'),
+                value: const Text('Add | Update | Remove'),
                 onPressed: ((context) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PromotionBannerSetting()));
+                  Get.to(() => const PromotionBannerSetting());
                 }),
               ),
               SettingsTile.switchTile(
                 onToggle: (value) {},
                 initialValue: true,
-                leading: Icon(Icons.format_paint),
-                title: Text('Enable custom theme'),
+                leading: const Icon(Icons.format_paint),
+                title: const Text('Enable custom theme'),
               ),
             ],
           ),

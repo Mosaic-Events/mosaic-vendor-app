@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ServiceCard extends StatelessWidget {
+  
   const ServiceCard({Key? key}) : super(key: key);
 
   @override
@@ -56,13 +57,6 @@ class ServiceCard extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: const Icon(
-              Icons.favorite_outline,
-              size: 16.0,
             ),
           ),
         ],

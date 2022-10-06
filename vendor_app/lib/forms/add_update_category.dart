@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
@@ -72,7 +73,7 @@ class AddOrUpdateCategory extends StatelessWidget {
                         if (formKey.currentState!.validate()) {
                           cloudService.addCategory(categoryController.text);
                           categoryController.clear();
-                          Navigator.of(context).pop();
+                          Get.back();
                         }
                       },
                       child: const Text(
@@ -149,8 +150,7 @@ class AddOrUpdateCategory extends StatelessWidget {
                                       categoryName: updateName!);
                                   updateName = "";
                                 }
-
-                                Navigator.of(context).pop();
+                                Get.back();
                               },
                               child: const Text(
                                 "UPDATE",

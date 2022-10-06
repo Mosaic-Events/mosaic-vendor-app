@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
     // fullname field
     final fullnameField = TextFormField(
       autofocus: true,
@@ -226,9 +226,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: MaterialButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            authService
+            AuthController.instance
                 .createUserWithEmailAndPassword(
-                    emailController.text, passwordController.text)
+                  emailController.text.trim(),
+                  passwordController.text.trim(),
+                )
                 .then(
                   (value) => postUserDetailsToFirestore(),
                 )
@@ -257,7 +259,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -313,42 +315,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 10),
                     roleField,
                     const SizedBox(height: 10),
-                    // Row(
-                    //   children: <Widget>[
-                    //     Expanded(
-                    //       child: RadioListTile<Gender>(
-                    //         contentPadding: EdgeInsets.zero,
-                    //         value: Gender.male,
-                    //         title: Text("Male"),
-                    //         groupValue: _gender,
-                    //         onChanged: (Gender? value) {
-                    //           setState(() {
-                    //             _gender = value;
-                    //             // business = false;
-                    //             // individual = true;
-                    //             log('character $_gender');
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //     Expanded(
-                    //       child: RadioListTile<Gender>(
-                    //         contentPadding: EdgeInsets.zero,
-                    //         value: Gender.female,
-                    //         title: Text("Female"),
-                    //         groupValue: _gender,
-                    //         onChanged: (Gender? value) {
-                    //           setState(() {
-                    //             _gender = value;
-                    //             // business = true;
-                    //             // individual = false;
-                    //             log('character $_gender');
-                    //           });
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     signupButton,
                     const SizedBox(height: 10),
                     Row(
@@ -357,7 +323,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const Text("Already have an account? "),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                           child: const Text(
                             "Login",
@@ -408,10 +374,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
 
       Fluttertoast.showToast(msg: "Account created successfully :)");
-      Navigator.push(
-        (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
+      Get.to(() => HomeScreen());
     }
   }
 }

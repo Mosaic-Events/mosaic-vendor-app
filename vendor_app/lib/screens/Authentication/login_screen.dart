@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/auth_service.dart';
@@ -21,8 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-
     // email field
     final emailField = TextFormField(
       autofocus: false,
@@ -83,7 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(10),
       child: MaterialButton(
         onPressed: () {
-          authService.signIn(emailController.text, passwordController.text);
+          AuthController.instance.signInUserWithEmailAndPassword(
+            emailController.text.trim(),
+            passwordController.text.trim(),
+          );
         },
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -125,11 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text("Don't have an account? "),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignUpScreen()));
+                            Get.to(() => const SignUpScreen());
                           },
                           child: const Text(
                             "SignUp",

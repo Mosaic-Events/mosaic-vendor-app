@@ -1,8 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:vendor_app/utils/view_text_field.dart';
-
-import '../services/auth_service.dart';
 import '../utils/profile_pic.dart';
 
 class MyAccountScreen extends StatelessWidget {
@@ -10,7 +8,7 @@ class MyAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Account"),
@@ -25,11 +23,11 @@ class MyAccountScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ViewTextField(
                 leading: Icons.account_circle,
-                title: authService.currentUser!.displayName!,
+                title: currentUser!.displayName!,
               ),
               ViewTextField(
                 leading: Icons.email_outlined,
-                title: authService.currentUser!.email!,
+                title: currentUser.email!,
               )
             ],
           )),

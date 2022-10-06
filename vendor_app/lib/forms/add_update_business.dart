@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,6 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
   // form key
   final businessFormKey = GlobalKey<FormState>();
   final updateBusinessFormKey = GlobalKey<FormState>();
-
 
   // Update fields
   String? updateName;
@@ -201,7 +201,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                     // image: _image!,
                                   );
                                   businessController.clear();
-                                  Navigator.of(context).pop();
+                                  Get.back();
                                 }
                               },
                               child: const Text(
@@ -415,7 +415,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                           updateInitialPrice = "";
                                         });
                                       }
-                                      Navigator.of(context).pop();
+                                      Get.back();
                                     },
                                     child: const Text(
                                       "Add Businesss",

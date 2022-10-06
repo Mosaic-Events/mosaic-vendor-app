@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vendor_app/screens/wrapper.dart';
+import 'package:vendor_app/screens/home_screen.dart';
 import 'package:vendor_app/services/connectivity_provider.dart';
 import 'package:vendor_app/utils/no_internet.dart';
 
@@ -25,7 +25,7 @@ class _CheckInternetConnectionState extends State<CheckInternetConnection> {
     return Consumer<ConnectivityProvider>(builder: (context, value, child) {
       return Scaffold(
         body: value.isOnline
-            ? Wrapper()
+            ? HomeScreen()
             : NoInternet(),
       );
     });

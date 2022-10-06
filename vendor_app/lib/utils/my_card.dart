@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, unnecessary_string_interpolations
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/forms/add_update_business.dart';
 
@@ -84,17 +85,12 @@ class _MyCardState extends State<MyCard> {
                       buttonPadding: EdgeInsets.zero,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddOrUpdateBusiness(
-                                  businessId: widget.businessId,
-                                ),
-                              ),
-                            );
-                          },
                           icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            Get.to(() => AddOrUpdateBusiness(
+                                  businessId: widget.businessId,
+                                ));
+                          },
                         ),
                         IconButton(
                           onPressed: () {

@@ -2,13 +2,12 @@
 
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:vendor_app/screens/profile_screen.dart';
-import 'package:vendor_app/services/auth_service.dart';
 
 import '../utils/service_card.dart';
-import 'service_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Screen"),
@@ -31,8 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+                Get.to(() => ProfileScreen());
               },
               child: Container(
                 height: 40,
@@ -51,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 110,
+              height: 75,
               child: Row(
                 children: [
                   CircleAvatar(
                     backgroundImage:
                         AssetImage('assets/defaults/profile_pic.png'),
-                    radius: 50,
+                    radius: 30,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
@@ -66,17 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          authService.currentUser!.displayName!,
+                          currentUser!.displayName!,
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          authService.currentUser!.email!,
+                          currentUser.email!,
                           style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -89,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               "Bio",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -97,25 +95,20 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias aut, repellat ipsum facere voluptate dicta obcaecati deserunt nobis suscipit eaque?",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 15,
               ),
+              textAlign: TextAlign.justify,
             ),
             SizedBox(
               height: 10,
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 21,
+                itemCount: 2,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
                       log("Service $index pressed");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ServiceDetailScreen(
-                                    serviceId: "Service Title",
-                                  )));
                     },
                     child: ServiceCard(),
                   );
