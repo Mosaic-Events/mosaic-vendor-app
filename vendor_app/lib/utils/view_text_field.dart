@@ -23,10 +23,10 @@ class ViewTextField extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             Expanded(child: Text(title)),
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {},
-            ),
+            // IconButton(
+            //   icon: const Icon(Icons.edit),
+            //   onPressed: () {},
+            // ),
           ],
         ),
       ),

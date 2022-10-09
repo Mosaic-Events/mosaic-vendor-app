@@ -9,6 +9,7 @@ class MyAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String password = "123456"; // FIXME:
     final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
@@ -30,11 +31,37 @@ class MyAccountScreen extends StatelessWidget {
                 leading: Icons.email_outlined,
                 title: currentUser.email!,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  AuthController.instance.deleteUser();
-                },
-                child: const Text('Delete User'),
+              ViewTextField(
+                leading: Icons.check,
+                title: 'Verified: ${currentUser.emailVerified}',
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (currentUser.emailVerified == false) {
+                      AuthController.instance.sendEmailVerifyLink();
+                    } else {
+                      return null;
+                    }
+                  },
+                  // onPressed: null,
+                  child: const Text('Verify Email'),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
+                child: ElevatedButton(
+                  onPressed: () {
+                    AuthController.instance
+                        .deleteUser(currentUser.email!, password);
+                  },
+                  child: const Text('Delete User'),
+                ),
               ),
             ],
           )),

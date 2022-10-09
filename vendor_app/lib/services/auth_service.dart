@@ -100,9 +100,13 @@ class AuthController extends GetxController {
     await _firebaseAuth.signOut();
   }
 
-  void deleteUser() {
+  Future deleteUser(String email, String password) async {
     try {
-      _userCredential.user!.delete();
+      UserCredential newCredential =
+          await _userCredential.user!.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: email, password: password),
+      );
+      newCredential.user!.delete();
       log('User deleted');
     } catch (e) {
       Get.snackbar(
@@ -123,6 +127,18 @@ class AuthController extends GetxController {
           ),
         ),
       );
+      log("${e.toString()} reauth");
+    }
+  }
+
+  Future sendEmailVerifyLink() async {
+    try {
+      if (!_userCredential.user!.emailVerified) {
+        await _userCredential.user!
+            .sendEmailVerification()
+            .whenComplete(() => Fluttertoast.showToast(msg: 'Link Sent'));
+      }
+    } catch (e) {
       log(e.toString());
     }
   }

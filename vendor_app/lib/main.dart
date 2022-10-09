@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
               // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               textStyle: const TextStyle(
                 // fontStyle: FontStyle.italic,
-                fontSize: 20,
+                fontSize: 15,
               ),
             ),
           ),
