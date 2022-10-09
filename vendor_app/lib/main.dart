@@ -32,11 +32,22 @@ class MyApp extends StatelessWidget {
           create: (context) => ConnectivityProvider(),
         )
       ],
+      // ignore: sort_child_properties_last
       child: GetMaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.brown,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              textStyle: const TextStyle(
+                // fontStyle: FontStyle.italic,
+                fontSize: 20,
+              ),
+            ),
+          ),
         ),
         home: const SplashScreen(),
       ),

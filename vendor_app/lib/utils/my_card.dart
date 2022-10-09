@@ -50,7 +50,7 @@ class _MyCardState extends State<MyCard> {
                 image: DecorationImage(
                     image: widget.imageUrl.isNotEmpty
                         ? NetworkImage(widget.imageUrl[0])
-                        : AssetImage('assets/images/placeholder01.jpg')
+                        : const AssetImage('assets/images/placeholder01.jpg')
                             as ImageProvider,
                     fit: BoxFit.cover),
               ),
@@ -58,7 +58,7 @@ class _MyCardState extends State<MyCard> {
                 padding: EdgeInsets.all(8),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -71,10 +71,10 @@ class _MyCardState extends State<MyCard> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: 16.0),
                     child: Text(
                       widget.description,
-                      style: TextStyle(),
+                      style: const TextStyle(),
                       textScaleFactor: 0.9,
                     ),
                   ),

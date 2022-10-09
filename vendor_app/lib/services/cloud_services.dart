@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/business_model.dart';
 import '../models/category_model.dart';
-import '../utils/upload_image.dart';
 
 class CloudService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

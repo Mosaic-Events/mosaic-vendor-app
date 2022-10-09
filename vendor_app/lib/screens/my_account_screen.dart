@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vendor_app/services/auth_service.dart';
 import 'package:vendor_app/utils/view_text_field.dart';
 import '../utils/profile_pic.dart';
 
@@ -28,7 +29,13 @@ class MyAccountScreen extends StatelessWidget {
               ViewTextField(
                 leading: Icons.email_outlined,
                 title: currentUser.email!,
-              )
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  AuthController.instance.deleteUser();
+                },
+                child: const Text('Delete User'),
+              ),
             ],
           )),
     );

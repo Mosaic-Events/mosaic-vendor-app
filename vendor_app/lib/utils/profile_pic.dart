@@ -7,8 +7,6 @@ import 'package:vendor_app/utils/upload_image.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/services/cloud_services.dart';
 
-import '../services/auth_service.dart';
-
 class ProfilePic extends StatelessWidget {
   const ProfilePic({Key? key}) : super(key: key);
 
@@ -37,7 +35,7 @@ class ProfilePic extends StatelessWidget {
                 CircleAvatar(
                   backgroundImage: data['profileUrl'] != null
                       ? NetworkImage("${data['profileUrl']}")
-                      : const AssetImage("assets/default/default_pp.png")
+                      : const AssetImage("assets/defaults/profile_pic.png")
                           as ImageProvider,
                 ),
                 Positioned(

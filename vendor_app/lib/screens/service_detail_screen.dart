@@ -22,7 +22,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     final cloudService = Provider.of<CloudService>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Service Detail Screen'),
+        title: const Text('Service Detail Screen'),
         elevation: 0,
       ),
       body: Padding(
@@ -32,11 +32,11 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text("Something went wrong");
+              return const Text("Something went wrong");
             }
 
             if (snapshot.hasData && !snapshot.data!.exists) {
-              return Text("Document does not exist");
+              return const Text("Document does not exist");
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
@@ -47,14 +47,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 children: [
                   Text(
                     data['businessName'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     data['owner'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
                     textAlign: TextAlign.justify,
@@ -78,7 +78,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                   ),
                   // Image GridView
@@ -106,7 +106,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
               );
             }
 
-            return MyLoadingWidget();
+            return const MyLoadingWidget();
           },
         ),
       ),

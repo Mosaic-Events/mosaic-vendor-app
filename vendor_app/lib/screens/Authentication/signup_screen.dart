@@ -1,16 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:provider/provider.dart';
 
 import '../../models/user_model.dart';
 import '../../services/auth_service.dart';
-import '../home_screen.dart';
 
 enum Gender { male, female, other }
 
@@ -22,8 +18,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  // Gender? _gender = Gender.male;
-  final defaultImage = Image.asset('assets/default/default_pp.png');
   // auth
   final _auth = FirebaseAuth.instance;
 
@@ -102,7 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // gender field
     final genderField = DropdownButtonHideUnderline(
         child: DropdownButtonFormField(
-      hint: Text("Select Gender"),
+      hint: const Text("Select Gender"),
       value: _gender,
       items: _genderList
           .map(
@@ -127,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // role field
     final roleField = DropdownButtonHideUnderline(
         child: DropdownButtonFormField(
-      hint: Text("Select Role"),
+      hint: const Text("Select Role"),
       value: _role,
       items: _roleList
           .map(
@@ -153,15 +147,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final phoneNoField = IntlPhoneField(
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        counter: Offstage(),
+        counter: const Offstage(),
         labelText: 'Mobile Number',
         border: OutlineInputBorder(
-          borderSide: BorderSide(),
+          borderSide: const BorderSide(),
           borderRadius: BorderRadius.circular(10),
         ),
       ),
       showDropdownIcon: false,
-      flagsButtonPadding: EdgeInsets.only(left: 12),
+      flagsButtonPadding: const EdgeInsets.only(left: 12),
       initialCountryCode: 'PK',
       onSaved: ((value) {
         _phoneNumber = value!.completeNumber.toString();
@@ -228,8 +222,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           if (_formKey.currentState!.validate()) {
             AuthController.instance
                 .createUserWithEmailAndPassword(
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
                 )
                 .then(
                   (value) => postUserDetailsToFirestore(),
@@ -265,7 +259,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Icons.arrow_back,
           ),
         ),
-        title: Text("Create an account"),
+        title: const Text("Create an account"),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -279,28 +273,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    // Profile Pic
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     log("Upload image");
-                    //   },
-                    //   child: CircleAvatar(
-                    //     backgroundColor: Colors.black,
-                    //     radius: 70,
-                    //     child: ClipRRect(
-                    //       child: Image.network(
-                    //         "http://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-                    //         loadingBuilder: (context, child, loadingProgress) =>
-                    //             (loadingProgress == null)
-                    //                 ? child
-                    //                 : CircularProgressIndicator(),
-                    //         errorBuilder: (context, error, stackTrace) =>
-                    //             defaultImage,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(height: 20),
                     fullnameField,
                     const SizedBox(height: 10),
                     emailField,
@@ -372,9 +344,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         currentUserr.updateDisplayName(fullnameController.text);
         currentUserr.updateEmail(emailController.text);
       });
-
-      Fluttertoast.showToast(msg: "Account created successfully :)");
-      Get.to(() => HomeScreen());
     }
   }
 }
