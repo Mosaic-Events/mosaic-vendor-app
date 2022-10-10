@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/services/auth_service.dart';
 import 'package:vendor_app/utils/view_text_field.dart';
-import '../utils/profile_pic.dart';
+import '../utils/profile_pic_with_edit_button.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class MyAccountScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             children: [
-              const ProfilePic(),
+              const ProfilePicWithEditButton(),
               const SizedBox(height: 20),
               ViewTextField(
                 leading: Icons.account_circle,
@@ -44,7 +44,7 @@ class MyAccountScreen extends StatelessWidget {
                     if (currentUser.emailVerified == false) {
                       AuthController.instance.sendEmailVerifyLink();
                     } else {
-                      return null;
+                      return;
                     }
                   },
                   // onPressed: null,

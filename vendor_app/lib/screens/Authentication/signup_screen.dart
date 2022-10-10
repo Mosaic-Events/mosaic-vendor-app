@@ -157,8 +157,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showDropdownIcon: false,
       flagsButtonPadding: const EdgeInsets.only(left: 12),
       initialCountryCode: 'PK',
-      onSaved: ((value) {
-        _phoneNumber = value!.completeNumber.toString();
+      onChanged: ((value) {
+        _phoneNumber = value.completeNumber.toString();
       }),
     );
 

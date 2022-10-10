@@ -40,7 +40,7 @@ class AuthController extends GetxController {
     required String password,
   }) async {
     try {
-      await _firebaseAuth
+      _userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password)
           .whenComplete(
             () =>

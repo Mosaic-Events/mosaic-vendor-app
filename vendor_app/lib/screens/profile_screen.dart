@@ -7,7 +7,7 @@ import 'package:vendor_app/screens/settings.dart';
 
 import '../services/auth_service.dart';
 import '../utils/profile_menu.dart';
-import '../utils/profile_pic.dart';
+import '../utils/profile_pic_with_edit_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 20),
         child: Column(
           children: [
-            ProfilePic(),
+            ProfilePicWithEditButton(),
             SizedBox(height: 20),
             ProfileMenu(
               leading: Icons.account_circle_rounded,

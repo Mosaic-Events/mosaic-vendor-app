@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/screens/profile_screen.dart';
+import 'package:vendor_app/utils/profile_pic.dart';
 
 import '../utils/service_card.dart';
 
@@ -32,13 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Get.to(() => ProfileScreen());
               },
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/defaults/logo.png'))),
-              ),
+              child: ProfilePic(radius: 35),
             ),
           )
         ],
@@ -48,41 +43,38 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 75,
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        AssetImage('assets/defaults/profile_pic.png'),
-                    radius: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          currentUser!.displayName!,
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+            if (currentUser!.displayName != null)
+              SizedBox(
+                height: 75,
+                child: Row(
+                  children: [
+                    ProfilePic(radius: 70),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            currentUser.displayName!,
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          currentUser.email!,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                          Text(
+                            currentUser.email!,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
             // Bio
             Text(
               "Bio",

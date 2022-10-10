@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         Provider<CloudService>(
           create: (_) => CloudService(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => ConnectivityProvider(),
-        )
+        // ChangeNotifierProvider(
+        //   create: (context) => ConnectivityProvider(),
+        // )
       ],
       // ignore: sort_child_properties_last
       child: GetMaterialApp(
