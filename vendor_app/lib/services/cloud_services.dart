@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/business_model.dart';
 import '../models/category_model.dart';
+import '../models/user_model.dart';
 
 class CloudService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // GET: Users Collection
   CollectionReference get usersCollection =>
@@ -76,27 +76,38 @@ class CloudService {
     required String categoryId,
     // List<String>? images,
   }) async {
-    final businessId =
-        'busi_${DateTime.now().millisecondsSinceEpoch}'; // For unique id
+    // For unique id
+    final businessId = 'busi_${DateTime.now().millisecondsSinceEpoch}';
 
-    // calling our cate_model
-    BusinessModel businessModel = BusinessModel();
-    businessModel.owner = _auth.currentUser!.uid;
-    businessModel.businessId = businessId;
-    businessModel.businessName = businessName;
-    businessModel.initialPrice = initialPrice;
-    businessModel.businessCategory = categoryId;
-    businessModel.images = [];
-    businessModel.joiningDate = DateTime.now();
+    final currentUser = FirebaseAuth.instance.currentUser;
 
-    await businessCollection
-        .doc(businessId)
-        .set(businessModel.toMap())
-        .whenComplete(() {
-      // UploadImage.uploadBusinessImages(context, businessId, image);
-    }).catchError((e) {
-      Fluttertoast.showToast(msg: e);
-    });
+    if (currentUser != null) {
+      UserModel? user = UserModel(
+        uid: currentUser.uid,
+        fullname: currentUser.displayName,
+        email: currentUser.email,
+      );
+      log(currentUser.toString());
+      // calling our cate_model
+      BusinessModel businessModel = BusinessModel();
+      businessModel.owner = user;
+      businessModel.businessId = businessId;
+      businessModel.businessName = businessName;
+      businessModel.initialPrice = initialPrice;
+      businessModel.businessCategory = categoryId;
+      businessModel.images = [];
+      businessModel.joiningDate = DateTime.now();
+
+      await businessCollection
+          .doc(businessId)
+          .set(businessModel.toMap())
+          .whenComplete(() {
+        log("Service added");
+        Fluttertoast.showToast(msg: "Service added");
+      }).catchError((e) {
+        Fluttertoast.showToast(msg: e);
+      });
+    }
   }
 
   // UPDATE: Business to firestore

@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// import 'dart:convert';
-
 class CategoryModel {
   String? cateId;
   String? cateName;
@@ -8,17 +5,6 @@ class CategoryModel {
     this.cateId,
     this.cateName,
   });
-
-  /*CategoryModel copyWith({
-    String? cateId,
-    String? cateName,
-  }) {
-    return CategoryModel(
-      cateId: cateId ?? this.cateId,
-      cateName: cateName ?? this.cateName,
-    );
-  }
-  */
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

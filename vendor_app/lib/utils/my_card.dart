@@ -10,7 +10,7 @@ import '../services/cloud_services.dart';
 
 class MyCard extends StatefulWidget {
   String title;
-  String description;
+  String? description;
   String price;
   String businessId;
   List imageUrl;
@@ -18,7 +18,7 @@ class MyCard extends StatefulWidget {
   MyCard({
     Key? key,
     required this.title,
-    required this.description,
+    this.description,
     required this.price,
     required this.imageUrl,
     required this.businessId,
@@ -73,7 +73,7 @@ class _MyCardState extends State<MyCard> {
                   Padding(
                     padding: const EdgeInsets.only(right: 16.0),
                     child: Text(
-                      widget.description,
+                      widget.description!,
                       style: const TextStyle(),
                       textScaleFactor: 0.9,
                     ),

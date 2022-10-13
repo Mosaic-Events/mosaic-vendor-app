@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:vendor_app/models/user_model.dart';
 import 'package:vendor_app/screens/service_detail_screen.dart';
 
 import '../forms/add_update_business.dart';
@@ -25,7 +26,7 @@ class BusinessSettingScreen extends StatelessWidget {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: cloudService.businessCollection
-            .where('owner', isEqualTo: userId)
+            .where('owner.uid', isEqualTo: userId)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -38,6 +39,8 @@ class BusinessSettingScreen extends StatelessWidget {
                   final businessName =
                       snapshot.data!.docs[index]['businessName'];
                   final owner = snapshot.data!.docs[index]['owner'];
+                  // Map<String, dynamic> userMap = jsonDecode(owner);
+                  final UserModel user = UserModel.fromMap(owner);
                   final businessId = snapshot.data!.docs[index]['businessId'];
                   final initialPrice =
                       snapshot.data!.docs[index]['initialPrice'];
@@ -51,7 +54,7 @@ class BusinessSettingScreen extends StatelessWidget {
                     child: MyCard(
                       title: businessName,
                       price: initialPrice,
-                      description: owner,
+                      description: user.fullname,
                       businessId: businessId,
                       imageUrl: imageUrl,
                     ),

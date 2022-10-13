@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendor_app/models/user_model.dart';
 import 'package:vendor_app/services/cloud_services.dart';
 
 import '../utils/my_loading_widget.dart';
@@ -42,18 +43,21 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
             if (snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data =
                   snapshot.data!.data() as Map<String, dynamic>;
+              final businessName = data['businessName'];
+              final owner = data['owner'];
+              final UserModel user = UserModel.fromMap(owner);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data['businessName'],
+                    businessName,
                     style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    data['owner'],
+                    user.fullname ?? "null",
                     style: const TextStyle(
                       fontSize: 15,
                     ),
