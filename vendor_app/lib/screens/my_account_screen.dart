@@ -10,61 +10,71 @@ class MyAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String password = "123456"; // FIXME:
-    final currentUser = FirebaseAuth.instance.currentUser;
+    var user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Account"),
         centerTitle: true,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: Column(
-            children: [
-              const ProfilePicWithEditButton(),
-              const SizedBox(height: 20),
-              ViewTextField(
-                leading: Icons.account_circle,
-                title: currentUser!.displayName!,
-              ),
-              ViewTextField(
-                leading: Icons.email_outlined,
-                title: currentUser.email!,
-              ),
-              ViewTextField(
-                leading: Icons.check,
-                title: 'Verified: ${currentUser.emailVerified}',
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (currentUser.emailVerified == false) {
-                      AuthController.instance.sendEmailVerifyLink();
-                    } else {
-                      return;
-                    }
-                  },
-                  // onPressed: null,
-                  child: const Text('Verify Email'),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 3));
+          if (user != null) {
+            await user!.reload();
+            user = FirebaseAuth.instance.currentUser;
+          }
+        },
+        child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                const ProfilePicWithEditButton(),
+                const SizedBox(height: 20),
+                ViewTextField(
+                  leading: Icons.account_circle,
+                  title: user!.displayName!,
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
-                child: ElevatedButton(
-                  onPressed: () {
-                    AuthController.instance
-                        .deleteUser(currentUser.email!, password);
-                  },
-                  child: const Text('Delete User'),
+                ViewTextField(
+                  leading: Icons.email_outlined,
+                  title: user.email!,
                 ),
-              ),
-            ],
-          )),
+                ViewTextField(
+                  leading: Icons.check,
+                  title: 'Verified: ${user.emailVerified}',
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (user!.emailVerified == false) {
+                        AuthController.instance.sendEmailVerifyLink();
+                      } else {
+                        return;
+                      }
+                    },
+                    // onPressed: null,
+                    child: const Text('Verify Email'),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      AuthController.instance
+                          .deleteUser(user!.email!, password);
+                    },
+                    child: const Text('Delete User'),
+                  ),
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

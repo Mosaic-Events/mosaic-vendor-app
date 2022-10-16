@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vendor_app/screens/forgot_password.dart';
 
 import '../../services/auth_service.dart';
 import 'signup_screen.dart';
@@ -81,10 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(10),
       child: MaterialButton(
         onPressed: () {
-          AuthController.instance.signInUserWithEmailAndPassword(
-            emailController.text.trim(),
-            passwordController.text.trim(),
-          );
+          if (_formKey.currentState!.validate()) {
+            AuthController.instance.signInUserWithEmailAndPassword(
+              emailController.text.trim(),
+              passwordController.text.trim(),
+            );
+          }
         },
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -119,7 +122,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     passwordField,
                     const SizedBox(height: 10),
                     loginButton,
-                    const SizedBox(height: 15),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => const ForgotPasswordScreen());
+                      },
+                      child: const Text('Forgot Password'),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

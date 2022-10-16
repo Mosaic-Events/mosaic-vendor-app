@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         //   create: (context) => ConnectivityProvider(),
         // )
       ],
-      // ignore: sort_child_properties_last
       child: GetMaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
