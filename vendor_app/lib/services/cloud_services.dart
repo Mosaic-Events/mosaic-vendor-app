@@ -69,12 +69,12 @@ class CloudService {
   }
 
   // ADD: Business to firestore
-  Future addBusiness({
+  Future<void> addBusiness({
     required BuildContext context,
     required String businessName,
     required String initialPrice,
     required String categoryId,
-    // List<String>? images,
+    List<String>? images,
   }) async {
     // For unique id
     final businessId = 'busi_${DateTime.now().millisecondsSinceEpoch}';
@@ -87,7 +87,6 @@ class CloudService {
         fullname: currentUser.displayName,
         email: currentUser.email,
       );
-      log(currentUser.toString());
       // calling our cate_model
       BusinessModel businessModel = BusinessModel();
       businessModel.owner = user;
@@ -95,13 +94,13 @@ class CloudService {
       businessModel.businessName = businessName;
       businessModel.initialPrice = initialPrice;
       businessModel.businessCategory = categoryId;
-      businessModel.images = [];
+      businessModel.images = images;
       businessModel.joiningDate = DateTime.now();
 
       await businessCollection
           .doc(businessId)
           .set(businessModel.toMap())
-          .whenComplete(() {
+          .then((value) {
         log("Service added");
         Fluttertoast.showToast(msg: "Service added");
       }).catchError((e) {
