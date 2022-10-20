@@ -44,22 +44,22 @@ class MyAccountScreen extends StatelessWidget {
                   leading: Icons.check,
                   title: 'Verified: ${user.emailVerified}',
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 2.5),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (user!.emailVerified == false) {
-                        AuthController.instance.sendEmailVerifyLink();
-                      } else {
-                        return;
-                      }
-                    },
-                    // onPressed: null,
-                    child: const Text('Verify Email'),
+                if (!user.emailVerified)
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 2.5),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (user!.emailVerified == false) {
+                          AuthController.instance.sendEmailVerifyLink();
+                        } else {
+                          return;
+                        }
+                      },
+                      child: const Text('Verify Email'),
+                    ),
                   ),
-                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding:

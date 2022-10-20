@@ -26,6 +26,10 @@ class CloudService {
   // GET: Business Collection
   CollectionReference get businessCollection =>
       _firebaseFirestore.collection('businesses');
+  
+  // GET: Orders Collection
+  CollectionReference get ordersCollection =>
+      _firebaseFirestore.collection('booking_details');
 
   // GET: Category By ID
   getCategoryById({required String cateId}) =>

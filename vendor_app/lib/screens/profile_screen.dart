@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/screens/my_account_screen.dart';
+import 'package:vendor_app/screens/orders_sceen.dart';
 import 'package:vendor_app/screens/settings.dart';
 
 import '../services/auth_service.dart';
@@ -30,6 +31,14 @@ class ProfileScreen extends StatelessWidget {
               title: "My Account",
               trailing: Icons.arrow_forward,
               press: () => {Get.to(() => MyAccountScreen())},
+            ),
+            ProfileMenu(
+              leading: Icons.book,
+              title: "Orders",
+              trailing: Icons.arrow_forward,
+              press: () {
+                Get.to(() => OrdersScreen());
+              },
             ),
             ProfileMenu(
               leading: Icons.settings_rounded,

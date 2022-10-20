@@ -1,4 +1,8 @@
-import 'package:vendor_app/models/user_model.dart';
+import 'dart:convert';
+
+import 'user_model.dart';
+
+
 
 class BusinessModel {
   String? businessId;
@@ -21,25 +25,39 @@ class BusinessModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'owner': owner?.toMap(),
       'businessId': businessId,
       'businessName': businessName,
       'initialPrice': initialPrice,
       'businessCategory': businessCategory,
       'images': images,
       'joiningDate': joiningDate?.millisecondsSinceEpoch,
+      'owner': owner?.toMap(),
     };
   }
 
   factory BusinessModel.fromMap(Map<String, dynamic> map) {
     return BusinessModel(
-      owner: map['owner'],
-      businessId: map['businessId'],
-      businessName: map['businessName'],
-      initialPrice: map['initialPrice'],
-      businessCategory: map['businessCategory'],
-      joiningDate: map['joiningDate'],
-      images: map['images'],
+      businessId:
+          map['businessId'] != null ? map['businessId'] as String : null,
+      businessName:
+          map['businessName'] != null ? map['businessName'] as String : null,
+      initialPrice:
+          map['initialPrice'] != null ? map['initialPrice'] as String : null,
+      businessCategory: map['businessCategory'] != null
+          ? map['businessCategory'] as String
+          : null,
+      images: map['images'] != null ? List<String>.from(map['images']) : null,
+      joiningDate: map['joiningDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['joiningDate'] as int)
+          : null,
+      owner: map['owner'] != null
+          ? UserModel.fromMap(map['owner'] as Map<String, dynamic>)
+          : null,
     );
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory BusinessModel.fromJson(String source) =>
+      BusinessModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
