@@ -39,6 +39,7 @@ class BusinessModel {
       initialPrice: map['initialPrice'],
       businessCategory: map['businessCategory'],
       joiningDate: map['joiningDate'],
+      images: map['images'],
     );
   }
 }

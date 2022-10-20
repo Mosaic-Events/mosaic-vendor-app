@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+
 import 'package:vendor_app/models/user_model.dart';
 import 'package:vendor_app/services/cloud_services.dart';
 
 import '../utils/my_loading_widget.dart';
 import '../utils/upload_image.dart';
+import 'image_view.dart';
 
 class ServiceDetailScreen extends StatefulWidget {
   final String serviceId;
@@ -45,6 +48,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   snapshot.data!.data() as Map<String, dynamic>;
               final businessName = data['businessName'];
               final owner = data['owner'];
+              final images = data['images'];
               final UserModel user = UserModel.fromMap(owner);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,14 +98,20 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                           crossAxisSpacing: 2.0,
                           mainAxisSpacing: 2.0,
                         ),
-                        itemCount: data['images'].length,
+                        itemCount: images.length,
                         itemBuilder: (BuildContext context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.circular(0.0),
-                              image: DecorationImage(
-                                  image: NetworkImage(data['images'][index]),
-                                  fit: BoxFit.fill),
+                          return InkWell(
+                            onTap: () => Get.to(() => GalleryWidget(
+                                  urls: images,
+                                  index: index,
+                                )),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(0.0),
+                                image: DecorationImage(
+                                    image: NetworkImage(images[index]),
+                                    fit: BoxFit.fill),
+                              ),
                             ),
                           );
                         }),
@@ -116,19 +126,4 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
       ),
     );
   }
-
-  // Future imagePickerMethod(String businessId) async {
-  //   final imagePicker = ImagePicker();
-  //   final pick = await imagePicker.pickImage(
-  //     source: ImageSource.gallery,
-  //     imageQuality: 50,
-  //   );
-  //   if (pick != null) {
-  //     log(pick.path);
-  //     File image = File(pick.path);
-  //     UploadImage.uploadBusinessImages(context, businessId, image);
-  //   } else {
-  //     Fluttertoast.showToast(msg: 'No file selected');
-  //   }
-  // }
 }

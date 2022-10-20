@@ -488,7 +488,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
     setState(() {});
   }
 
-  Future<String> uploadImage(XFile _image) async {
+  Future<String> uploadImage(XFile image) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
     final imageId = 'ban_${DateTime.now().millisecondsSinceEpoch}';
     Reference reference = FirebaseStorage.instance
@@ -497,7 +497,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
         .child(userId)
         .child(imageId);
 
-    UploadTask uploadTask = reference.putFile(File(_image.path));
+    UploadTask uploadTask = reference.putFile(File(image.path));
     await uploadTask.whenComplete(() async {
       String dd = await reference.getDownloadURL();
 
@@ -514,12 +514,12 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
     return await reference.getDownloadURL();
   }
 
-  Future<void> uploadFunction(List<XFile> _images) async {
+  Future<void> uploadFunction(List<XFile> images) async {
     setState(() {
       isUploading = true;
     });
-    for (int i = 0; i < _images.length; i++) {
-      var imgUrl = await uploadImage(_images[i]);
+    for (int i = 0; i < images.length; i++) {
+      var imgUrl = await uploadImage(images[i]);
       _arrImagesUrls.add(imgUrl.toString());
     }
   }
