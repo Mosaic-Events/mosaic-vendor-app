@@ -18,8 +18,8 @@ class UploadImage {
     final imagePicker = ImagePicker();
     String? downloadURL;
 
-    final selectedImage = await imagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    final selectedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (selectedImage != null) {
       image = File(selectedImage.path);
@@ -61,7 +61,7 @@ class UploadImage {
     String? downloadURL;
 
     final selectedBanner = await imagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+        source: ImageSource.gallery);
 
     if (selectedBanner != null) {
       banner = File(selectedBanner.path);
@@ -96,7 +96,7 @@ class UploadImage {
     final imagePicker = ImagePicker();
 
     List<XFile>? pickedImages = await imagePicker.pickMultiImage(
-      imageQuality: 50,
+      
     );
 
     if (pickedImages != null) {
@@ -126,7 +126,7 @@ class UploadImage {
     await firebaseFirestore
         .collection("businesses")
         .doc(businessId)
-        .update({'images': downloadUrls}).whenComplete(() {
+        .update({'images': downloadUrls}).then((value) {
       Fluttertoast.showToast(
           msg: "Business Images Added", toastLength: Toast.LENGTH_LONG);
     }).catchError((e) {

@@ -6,6 +6,7 @@ class UserModel {
   String? phoneNo;
   String? profileUrl;
   String? gender;
+  String? token;
   DateTime? joiningDate;
   bool? isActive;
 
@@ -19,6 +20,7 @@ class UserModel {
     this.joiningDate,
     this.profileUrl,
     this.isActive,
+    this.token,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +34,7 @@ class UserModel {
       'joiningDate': joiningDate,
       'profileUrl': profileUrl,
       'isActive': isActive,
+      'token': token,
     };
   }
 
@@ -46,6 +49,7 @@ class UserModel {
       joiningDate: map['joiningDate'],
       profileUrl: map['profileUrl'],
       isActive: map['isActive'],
+      token: map['token'],
     );
   }
 }

@@ -1,14 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/screens/profile_screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:vendor_app/utils/profile_pic.dart';
-
-import '../utils/service_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +20,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late String? mtoken;
+
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+    getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -94,23 +105,87 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      log("Service $index pressed");
-                    },
-                    child: ServiceCard(),
-                  );
-                },
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: () => sendPushNotification(token),
+            //   child: Text('Send'),
+            // )
           ],
         ),
       ),
       // bottomNavigationBar: MyBottomAppBar(),
     );
+  }
+
+  void requestPermission() async {
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    NotificationSettings notificationSettings =
+        await firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: true,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.authorized) {
+      log('User granted');
+    } else if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      log('User granted provisional permission');
+    } else {
+      log('User declined permissions');
+    }
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token;
+      });
+      log('My token: $mtoken');
+      saveToken(token!);
+    });
+  }
+
+  void saveToken(String token) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .update({'token': token});
+  }
+
+  void sendPushNotification(String token) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key='
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': 'You have a new order.',
+              'title': 'New Order',
+            },
+            "notification": <String, dynamic>{
+              'title': 'New Order',
+              'body': 'You have a new order.',
+              'android_channel_id': 'vendor_app',
+            },
+            "to": token,
+          },
+        ),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
