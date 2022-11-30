@@ -36,26 +36,25 @@ class BusinessSettingScreen extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, index) {
-                  final businessName =
-                      snapshot.data!.docs[index]['businessName'];
+                  final name =
+                      snapshot.data!.docs[index]['name'];
                   final owner = snapshot.data!.docs[index]['owner'];
-                  // Map<String, dynamic> userMap = jsonDecode(owner);
                   final UserModel user = UserModel.fromMap(owner);
-                  final businessId = snapshot.data!.docs[index]['businessId'];
-                  final initialPrice =
-                      snapshot.data!.docs[index]['initialPrice'];
+                  final id = snapshot.data!.docs[index]['id'];
+                  final price =
+                      snapshot.data!.docs[index]['price'];
                   final imageUrl = snapshot.data!.docs[index]['images'];
                   return InkWell(
                     onTap: () {
                       Get.to(() => ServiceDetailScreen(
-                            serviceId: businessId,
+                            serviceId: id,
                           ));
                     },
                     child: MyCard(
-                      title: businessName,
-                      price: initialPrice,
+                      title: name,
+                      price: price,
                       description: user.fullname,
-                      businessId: businessId,
+                      businessId: id,
                       imageUrl: imageUrl,
                     ),
                   );

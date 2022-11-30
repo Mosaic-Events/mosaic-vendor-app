@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vendor_app/models/banquet_model.dart';
 
 import '../models/business_model.dart';
 import '../models/category_model.dart';
@@ -26,7 +27,7 @@ class CloudService {
   // GET: Business Collection
   CollectionReference get businessCollection =>
       _firebaseFirestore.collection('businesses');
-  
+
   // GET: Orders Collection
   CollectionReference get ordersCollection =>
       _firebaseFirestore.collection('booking_details');
@@ -142,6 +143,45 @@ class CloudService {
     } on FirebaseAuthException catch (e) {
       log(e.toString());
       Fluttertoast.showToast(msg: e.code);
+    }
+  }
+
+  Future<void> addBanquet({
+    required String name,
+    required String price,
+    required String capacity,
+    List<String>? images,
+  }) async {
+    // For unique id
+    final id = '${DateTime.now().millisecondsSinceEpoch}';
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      UserModel? user = UserModel(
+        uid: currentUser.uid,
+        fullname: currentUser.displayName,
+        email: currentUser.email,
+      );
+      BanquetModel banquetModel = BanquetModel(
+        id: id,
+        owner: user,
+        name: name,
+        price: price,
+        capacity: capacity,
+        images: images,
+        registrationDate: DateTime.now(),
+      );
+
+      await businessCollection
+          .doc(id)
+          .set(banquetModel.toMap())
+          .then((value) {
+        log("Service added");
+        Fluttertoast.showToast(msg: "Service added");
+      }).catchError((e) {
+        Fluttertoast.showToast(msg: e);
+      });
     }
   }
 }

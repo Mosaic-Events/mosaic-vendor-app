@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:vendor_app/screens/banquet_setting.dart';
 import 'package:vendor_app/screens/business_setting.dart';
 import 'package:vendor_app/screens/category_setting.dart';
 import 'package:vendor_app/screens/promotion_banners.dart';
@@ -43,6 +44,14 @@ class SettingScreen extends StatelessWidget {
                 value: const Text('Add | Update | Remove'),
                 onPressed: ((context) {
                   Get.to(() => const PromotionBannerSetting());
+                }),
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.view_carousel),
+                title: const Text('Banquet'),
+                value: const Text('Add | Update | Remove'),
+                onPressed: ((context) {
+                  Get.to(() => const BanquetSetting());
                 }),
               ),
               SettingsTile.switchTile(

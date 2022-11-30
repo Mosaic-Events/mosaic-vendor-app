@@ -46,15 +46,16 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
             if (snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data =
                   snapshot.data!.data() as Map<String, dynamic>;
-              final businessName = data['businessName'];
+              final name = data['name'];
               final owner = data['owner'];
               final images = data['images'];
+              final capacity = data['capacity'];
               final UserModel user = UserModel.fromMap(owner);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    businessName,
+                    name,
                     style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -62,6 +63,13 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   ),
                   Text(
                     user.fullname ?? "null",
+                    style: const TextStyle(
+                      fontSize: 15,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    "Capacity: $capacity",
                     style: const TextStyle(
                       fontSize: 15,
                     ),

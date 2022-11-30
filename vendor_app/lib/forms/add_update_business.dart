@@ -26,6 +26,7 @@ class AddOrUpdateBusiness extends StatefulWidget {
 class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
   final TextEditingController businessController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController categoryController = TextEditingController();
 
   String? _selectedCategory;
 
@@ -45,9 +46,14 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
   int uploadedImages = 0;
   bool isUploading = false;
 
+  // stepper
+  int currentStep = 0;
+  var stream;
+
   @override
   Widget build(BuildContext context) {
     final cloudService = Provider.of<CloudService>(context);
+    stream = cloudService;
 
     return Scaffold(
         appBar: AppBar(
@@ -261,6 +267,53 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                           ),
                         ),
                 )
+
+              // Stepper(
+              //     margin: EdgeInsets.all(0.0),
+              //     type: StepperType.horizontal,
+              //     steps: getSteps(),
+              //     currentStep: currentStep,
+              //     onStepContinue: () {
+              //       final isLastStep = currentStep == getSteps().length - 1;
+
+              //       if (isLastStep) {
+              //         log('Complete');
+              //       } else {
+              //         setState(() {
+              //           currentStep += 1;
+              //         });
+              //       }
+              //     },
+              //     onStepCancel: currentStep == 0
+              //         ? null
+              //         : () => setState(() => currentStep -= 1),
+              //     controlsBuilder: (context, controls) {
+              //       final isLastStep = currentStep == getSteps().length - 1;
+              //       return Row(
+              //         children: [
+              //           Expanded(
+              //             child: Padding(
+              //               padding: const EdgeInsets.symmetric(vertical: 16.0),
+              //               child: ElevatedButton(
+              //                 onPressed: controls.onStepContinue,
+              //                 child: Text(isLastStep ? 'Confirm' : 'Next'),
+              //               ),
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: 10,
+              //           ),
+              //           if (currentStep != 0)
+              //             Expanded(
+              //               child: ElevatedButton(
+              //                 onPressed: controls.onStepCancel,
+              //                 child: const Text('Back'),
+              //               ),
+              //             ),
+              //         ],
+              //       );
+              //     },
+              //   )
               : // UPDATE: Business Form
               Form(
                   key: updateBusinessFormKey,
@@ -523,4 +576,66 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
       _arrImagesUrls.add(imgUrl.toString());
     }
   }
+
+  List<Step> getSteps() => [
+        Step(
+          isActive: currentStep >= 0,
+          title: Text('Category'),
+          content: DropdownButtonHideUnderline(
+              child: StreamBuilder<QuerySnapshot>(
+            stream: stream.categoryCollection.snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text("Something went wrong!");
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              // fetching data
+              final List cateList = [];
+              snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map categoryDate = document.data() as Map;
+                cateList.add(categoryDate['cateName']);
+              }).toList();
+              return DropdownButtonFormField(
+                hint: Text("Select Category"),
+                value: _selectedCategory,
+                items: cateList
+                    .map(
+                      (e) => DropdownMenuItem(value: e, child: Text(e)),
+                    )
+                    .toList(),
+                onChanged: (newCategory) {
+                  setState(() {
+                    _selectedCategory = newCategory.toString();
+                  });
+                },
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  labelText: "Category",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
+            },
+          )),
+        ),
+        Step(
+          isActive: currentStep >= 1,
+          title: Text('Details'),
+          content: Column(
+            children: [
+              if (_selectedCategory == 'Cars') Text("$_selectedCategory")
+            ],
+          ),
+        ),
+        Step(
+          isActive: currentStep >= 2,
+          title: Text('Images'),
+          content: Container(),
+        ),
+      ];
 }
