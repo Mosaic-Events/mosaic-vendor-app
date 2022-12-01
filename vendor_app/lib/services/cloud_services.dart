@@ -170,13 +170,11 @@ class CloudService {
         price: price,
         capacity: capacity,
         images: images,
+        category: 'Marriage Hall',
         registrationDate: DateTime.now(),
       );
 
-      await businessCollection
-          .doc(id)
-          .set(banquetModel.toMap())
-          .then((value) {
+      await businessCollection.doc(id).set(banquetModel.toMap()).then((value) {
         log("Service added");
         Fluttertoast.showToast(msg: "Service added");
       }).catchError((e) {
