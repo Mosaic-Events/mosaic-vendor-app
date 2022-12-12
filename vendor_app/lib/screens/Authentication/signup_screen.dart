@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:vendor_app/themes/themes.dart';
 
 import '../../models/user_model.dart';
 import '../../services/auth_service.dart';
@@ -60,10 +61,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.account_circle),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.account_circle,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Full Name",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
@@ -86,10 +88,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.mail),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.mail,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Email Address",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
@@ -108,13 +111,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _gender = value.toString();
         });
       },
-      decoration: InputDecoration(
-        // contentPadding: const EdgeInsets.all(0),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+      decoration: const InputDecoration(
         labelText: "Gender",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     ));
 
@@ -133,26 +131,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _role = value.toString();
         });
       },
-      decoration: InputDecoration(
-        // contentPadding: const EdgeInsets.all(0),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+      decoration: const InputDecoration(
         labelText: "Role",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     ));
 
     // phone no field
     final phoneNoField = IntlPhoneField(
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        counter: const Offstage(),
+      decoration: const InputDecoration(
+        counter: Offstage(),
         labelText: 'Mobile Number',
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(),
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
       showDropdownIcon: false,
       flagsButtonPadding: const EdgeInsets.only(left: 12),
@@ -182,10 +170,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.vpn_key),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.vpn_key,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Password",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
@@ -205,17 +194,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.vpn_key),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.vpn_key,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Confirm Password",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
     // SignUp button
     final signupButton = Material(
-      elevation: 5,
-      color: Colors.blue,
+      elevation: 0,
+      color: MyThemeData.buttonColor,
       borderRadius: BorderRadius.circular(10),
       child: MaterialButton(
         onPressed: () {
@@ -240,7 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -297,10 +287,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onTap: () {
                             Get.back();
                           },
-                          child: const Text(
+                          child: Text(
                             "Login",
                             style: TextStyle(
-                                color: Colors.blue,
+                                color: MyThemeData.colorPrimary,
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold),
                           ),

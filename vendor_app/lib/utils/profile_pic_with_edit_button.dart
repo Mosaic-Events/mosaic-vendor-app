@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vendor_app/themes/themes.dart';
 import 'package:vendor_app/utils/upload_image.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/services/cloud_services.dart';
@@ -55,7 +56,10 @@ class ProfilePicWithEditButton extends StatelessWidget {
                       onPressed: () {
                         UploadImage.uploadProfileImage();
                       },
-                      child: Icon(Icons.camera_alt),
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: MyThemeData.iconColor,
+                      ),
                     ),
                   ),
                 )

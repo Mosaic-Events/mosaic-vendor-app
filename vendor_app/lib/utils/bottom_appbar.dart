@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../themes/my_themes.dart';
-
 class MyBottomAppBar extends StatefulWidget {
   const MyBottomAppBar({Key? key}) : super(key: key);
 
@@ -41,7 +39,7 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
         milliseconds: 800,
       ),
       child: BottomAppBar(
-        color: MyColors.primaryColor,
+        color: Theme.of(context).bottomAppBarTheme.color,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

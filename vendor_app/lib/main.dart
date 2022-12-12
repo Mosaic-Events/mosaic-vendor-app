@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/firebase_options.dart';
+import 'package:vendor_app/themes/themes.dart';
 import 'services/auth_service.dart';
 import 'services/cloud_services.dart';
 
@@ -33,19 +34,9 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.brown,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.redAccent,
-              // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              textStyle: const TextStyle(
-                // fontStyle: FontStyle.italic,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ),
+        theme: MyThemeData.lightTheme,
+        darkTheme: MyThemeData.darkTheme,
+        themeMode: ThemeMode.system,
         home: const SplashScreen(),
       ),
     );

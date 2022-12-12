@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/screens/forgot_password.dart';
+import 'package:vendor_app/themes/themes.dart';
 
 import '../../services/auth_service.dart';
 import 'signup_screen.dart';
@@ -41,10 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.mail),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.mail,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Email Address",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
@@ -68,17 +70,17 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.vpn_key),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: Icon(
+          Icons.vpn_key,
+          color: MyThemeData.iconColor,
+        ),
         hintText: "Password",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
     // login button
     final loginButton = Material(
-      elevation: 5,
-      color: Colors.blue,
+      color: MyThemeData.buttonColor,
       borderRadius: BorderRadius.circular(10),
       child: MaterialButton(
         onPressed: () {
@@ -96,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -126,7 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Get.to(() => const ForgotPasswordScreen());
                       },
-                      child: const Text('Forgot Password'),
+                      child: Text(
+                        'Forgot Password',
+                        style: TextStyle(color: MyThemeData.colorPrimary),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,10 +141,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: () {
                             Get.to(() => const SignUpScreen());
                           },
-                          child: const Text(
+                          child: Text(
                             "SignUp",
                             style: TextStyle(
-                                color: Colors.blue,
+                                color: MyThemeData.colorPrimary,
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold),
                           ),
