@@ -78,6 +78,7 @@ class CloudService {
     required BuildContext context,
     required String businessName,
     required String initialPrice,
+    required String capacity,
     required String categoryId,
     List<String>? images,
   }) async {
@@ -98,6 +99,7 @@ class CloudService {
       businessModel.businessId = businessId;
       businessModel.businessName = businessName;
       businessModel.initialPrice = initialPrice;
+      businessModel.capacity = capacity;
       businessModel.businessCategory = categoryId;
       businessModel.images = images;
       businessModel.joiningDate = DateTime.now();

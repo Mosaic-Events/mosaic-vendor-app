@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+import 'package:vendor_app/screens/home_screen.dart';
+import 'package:vendor_app/screens/orders_sceen.dart';
+import 'package:vendor_app/screens/profile_screen.dart';
 
 class MyBottomAppBar extends StatefulWidget {
   const MyBottomAppBar({Key? key}) : super(key: key);
@@ -11,29 +14,9 @@ class MyBottomAppBar extends StatefulWidget {
 }
 
 class _MyBottomAppBarState extends State<MyBottomAppBar> {
-  final ScrollController _scrollController = ScrollController();
-
-  bool showBottomAppBar = true;
-
-  @override
-  void initState() {
-    _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        showBottomAppBar = false;
-        setState(() {});
-      } else {
-        showBottomAppBar = true;
-        setState(() {});
-      }
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: showBottomAppBar ? 60 : 0,
       curve: Curves.easeInOutSine,
       duration: Duration(
         milliseconds: 800,
@@ -46,27 +29,25 @@ class _MyBottomAppBarState extends State<MyBottomAppBar> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => HomeScreen());
+                },
                 icon: Icon(Icons.home),
               ),
             ),
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.chat),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.discount),
-            ),
-            IconButton(
               tooltip: "Notification",
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => OrdersScreen());
+              },
               icon: Icon(Icons.notifications_active),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => ProfileScreen());
+                },
                 icon: Icon(Icons.account_circle),
               ),
             ),

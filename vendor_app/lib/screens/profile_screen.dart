@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:vendor_app/screens/my_account_screen.dart';
 import 'package:vendor_app/screens/orders_sceen.dart';
 import 'package:vendor_app/screens/settings.dart';
+import 'package:vendor_app/utils/bottom_appbar.dart';
 
 import '../services/auth_service.dart';
 import '../utils/profile_menu.dart';
@@ -33,14 +34,6 @@ class ProfileScreen extends StatelessWidget {
               press: () => {Get.to(() => MyAccountScreen())},
             ),
             ProfileMenu(
-              leading: Icons.book,
-              title: "Orders",
-              trailing: Icons.arrow_forward,
-              press: () {
-                Get.to(() => OrdersScreen());
-              },
-            ),
-            ProfileMenu(
               leading: Icons.settings_rounded,
               title: "Setting",
               trailing: Icons.arrow_forward,
@@ -62,6 +55,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: MyBottomAppBar(),
     );
   }
 }

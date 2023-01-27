@@ -37,12 +37,12 @@ class BusinessSettingScreen extends StatelessWidget {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, index) {
                   final name =
-                      snapshot.data!.docs[index]['name'];
+                      snapshot.data!.docs[index]['businessName'];
                   final owner = snapshot.data!.docs[index]['owner'];
                   final UserModel user = UserModel.fromMap(owner);
-                  final id = snapshot.data!.docs[index]['id'];
+                  final id = snapshot.data!.docs[index]['businessId'];
                   final price =
-                      snapshot.data!.docs[index]['price'];
+                      snapshot.data!.docs[index]['initialPrice'];
                   final imageUrl = snapshot.data!.docs[index]['images'];
                   return InkWell(
                     onTap: () {

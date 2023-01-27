@@ -26,6 +26,7 @@ class AddOrUpdateBusiness extends StatefulWidget {
 class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
   final TextEditingController businessController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController capacityController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
 
   String? _selectedCategory;
@@ -121,6 +122,33 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                 ),
                               ),
                               const SizedBox(height: 10),
+                              // Capacity
+                              TextFormField(
+                                controller: capacityController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                validator: (value) {
+                                  RegExp regex = RegExp(r'^.{1,}$');
+                                  if (value!.isEmpty) {
+                                    return "Enter Capacity";
+                                  }
+                                  if (!regex.hasMatch(value)) {
+                                    return "Enter minimum 3 Character";
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  priceController.text = value!;
+                                },
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  prefixIcon:  Icon(Icons.people, color: MyThemeData.iconColor,),
+                                  hintText: "Capacity",
+                                ),
+                              ),
+                              const SizedBox(height: 10),
                               DropdownButtonHideUnderline(
                                   child: StreamBuilder<QuerySnapshot>(
                                 stream:
@@ -207,6 +235,7 @@ class _AddOrUpdateBusinessState extends State<AddOrUpdateBusiness> {
                                             businessName:
                                                 businessController.text,
                                             initialPrice: priceController.text,
+                                            capacity: capacityController.text,
                                             categoryId: _selectedCategory!,
                                             images: _arrImagesUrls,
                                           )
