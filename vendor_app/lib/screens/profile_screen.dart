@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vendor_app/screens/my_account_screen.dart';
-import 'package:vendor_app/screens/orders_sceen.dart';
 import 'package:vendor_app/screens/settings.dart';
 import 'package:vendor_app/utils/bottom_appbar.dart';
 

@@ -9,7 +9,7 @@ import 'package:vendor_app/models/user_model.dart';
 import 'package:vendor_app/utils/bottom_appbar.dart';
 import 'package:vendor_app/utils/profile_pic.dart';
 
-import '../utils/Service_card.dart';
+import '../utils/service_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
