@@ -2,8 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
+import '../utils/appbar.dart';
 import '../utils/bottom_appbar.dart';
 import '../utils/my_loading_widget.dart';
 
@@ -17,7 +18,7 @@ class OrderDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Order Details')),
+      appBar: MyAppBar(title: 'Order Details'),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
             .collection('booking_details')
@@ -50,12 +51,6 @@ class OrderDetail extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text(
-                    '1600 Amphitheatre Pkwy, Mountain View, CA 94043, United States',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
                   const Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                     child: Text(
@@ -82,9 +77,10 @@ class OrderDetail extends StatelessWidget {
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   15, 0, 0, 0),
                               child: Text(
-                                DateFormat.yMMMEd().format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                        dates[index])),
+                                // DateFormat.yMMMEd().format(
+                                //     DateTime.fromMillisecondsSinceEpoch(
+                                //         dates[index])),
+                                "${dates[index]}",
                                 style: const TextStyle(
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
@@ -107,10 +103,11 @@ class OrderDetail extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Name'),
-                      const Text('3'),
-                      Text('3 x ${data['bookedService']['initialPrice']}'),
+                    children: const [
+                      Text('Name'),
+                      Text('Price'),
+                      Text('People'),
+                      Text('Total Amount'),
                     ],
                   ),
                   const Divider(
@@ -119,22 +116,34 @@ class OrderDetail extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        'Total',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Rs. 300',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                    children: [
+                      Text('${data['bookedService']['businessName']}'),
+                      Text('${data['bookedService']['initialPrice']}'),
+                      Text('${data['people']}'),
+                      Text('${data['amount']}'),
                     ],
                   ),
+                  // Row(
+                  //   mainAxisSize: MainAxisSize.max,
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: const [
+                  //     Text(
+                  //       'Total',
+                  //       style: TextStyle(fontWeight: FontWeight.bold),
+                  //     ),
+                  //     Text(
+                  //       'Rs. 300',
+                  //       style: TextStyle(fontWeight: FontWeight.bold),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Cancel'),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text('Back'),
                     ),
                   ),
                 ],

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/appbar.dart';
 import '../utils/upload_image.dart';
 
 class PromotionBannerSetting extends StatefulWidget {
@@ -16,9 +17,8 @@ class _PromotionBannerSettingState extends State<PromotionBannerSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Manage Promotion Banners"),
-        centerTitle: true,
+      appBar: MyAppBar(
+        title: "Manage Promotion Banners",
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

@@ -2,27 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
-import 'package:vendor_app/screens/order_detail.dart';
+import 'package:vendor_app/screens/bidding_detail.dart';
 
 import '../models/business_model.dart';
 import '../models/user_model.dart';
-import '../services/cloud_services.dart';
 import '../utils/appbar.dart';
 import '../utils/bottom_appbar.dart';
 
-class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
+class MyBiddingScreen extends StatelessWidget {
+  const MyBiddingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cloudService = Provider.of<CloudService>(context);
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final user = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
-      appBar: MyAppBar(title: 'My Orders'),
+      appBar: MyAppBar(title: 'My Biddings'),
       body: StreamBuilder<QuerySnapshot>(
-        stream: cloudService.ordersCollection
-            .where('bookedService.owner.uid', isEqualTo: userId)
+        stream: FirebaseFirestore.instance
+            .collection('bidding_details')
+            .where('bidBy.uid', isEqualTo: user)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -32,27 +30,28 @@ class OrdersScreen extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final bookingId = snapshot.data!.docs[index]['id'];
-                  final bookedBy = snapshot.data!.docs[index]['bookedBy'];
-                  final bookedService =
-                      snapshot.data!.docs[index]['bookedService'];
-                  final UserModel user = UserModel.fromMap(bookedBy);
+                  final biddingId = snapshot.data!.docs[index]['id'];
+                  final bidBy = snapshot.data!.docs[index]['bidBy'];
+                  final biddingService =
+                      snapshot.data!.docs[index]['biddingService'];
+                  final UserModel user = UserModel.fromMap(bidBy);
                   final BusinessModel service =
-                      BusinessModel.fromMap(bookedService);
+                      BusinessModel.fromMap(biddingService);
 
                   return InkWell(
                     child: ListTile(
                       title: Text('${service.businessName}'),
-                      subtitle: Text(bookingId + " | " + user.fullname),
+                      subtitle: Text(biddingId + " | " + user.fullname),
                     ),
-                    onTap: () => Get.to(() => OrderDetail(orderNo: bookingId)),
+                    onTap: () =>
+                        Get.to(() => BiddingDetail(biddingId: biddingId)),
                   );
                 },
               );
             } else {
               return const Center(
                   child: Text(
-                "Sorry, There is no Order right now.",
+                "Sorry, Something went wrong.",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,

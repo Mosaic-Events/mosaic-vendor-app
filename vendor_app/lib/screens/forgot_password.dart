@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendor_app/services/cloud_services.dart';
 
+import '../utils/appbar.dart';
+
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -13,10 +15,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 
     final cloudService = Provider.of<CloudService>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset Password'),
-        centerTitle: true,
-        elevation: 0,
+      appBar: MyAppBar(
+        title: 'Reset Password'
       ),
       body: Padding(
         padding: const EdgeInsets.all(36.0),

@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vendor_app/screens/bidding_screen.dart';
 import 'package:vendor_app/screens/my_account_screen.dart';
 import 'package:vendor_app/screens/settings.dart';
+import 'package:vendor_app/utils/appbar.dart';
 import 'package:vendor_app/utils/bottom_appbar.dart';
 
 import '../services/auth_service.dart';
@@ -15,10 +17,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        centerTitle: true,
-        elevation: 0,
+      appBar: MyAppBar(
+        title: 'Profile',
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -31,6 +31,14 @@ class ProfileScreen extends StatelessWidget {
               title: "My Account",
               trailing: Icons.arrow_forward,
               press: () => {Get.to(() => MyAccountScreen())},
+            ),
+            ProfileMenu(
+              leading: Icons.book_outlined,
+              title: "My Biddings",
+              trailing: Icons.arrow_forward,
+              press: () {
+                Get.to(() => MyBiddingScreen());
+              },
             ),
             ProfileMenu(
               leading: Icons.settings_rounded,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_app/services/auth_service.dart';
 import 'package:vendor_app/utils/view_text_field.dart';
+import '../utils/appbar.dart';
 import '../utils/profile_pic_with_edit_button.dart';
 
 class MyAccountScreen extends StatelessWidget {
@@ -12,11 +13,7 @@ class MyAccountScreen extends StatelessWidget {
     String password = "123456"; // FIXME:
     var user = FirebaseAuth.instance.currentUser;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My Account"),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: MyAppBar(title: "My Account"),
       body: RefreshIndicator(
         onRefresh: () async {
           await Future.delayed(const Duration(seconds: 3));

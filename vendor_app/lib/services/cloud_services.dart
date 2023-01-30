@@ -28,6 +28,10 @@ class CloudService {
   CollectionReference get businessCollection =>
       _firebaseFirestore.collection('businesses');
 
+  // GET: Bidding Collection
+  CollectionReference get biddingCollection =>
+      _firebaseFirestore.collection('bidding_details');
+
   // GET: Orders Collection
   CollectionReference get ordersCollection =>
       _firebaseFirestore.collection('booking_details');
@@ -129,6 +133,19 @@ class CloudService {
       'initialPrice': initialPrice,
     }).whenComplete(() {
       Fluttertoast.showToast(msg: "Business Updated");
+    }).catchError((error) {
+      Fluttertoast.showToast(msg: "Error occured: $error");
+    });
+  }
+
+  Future updateBiddingStatus({
+    required biddingId,
+    required biddingStatus,
+  }) async {
+    await biddingCollection.doc(biddingId).update({
+      'biddingStatus': biddingStatus,
+    }).whenComplete(() {
+      Fluttertoast.showToast(msg: "Bid Updated");
     }).catchError((error) {
       Fluttertoast.showToast(msg: "Error occured: $error");
     });

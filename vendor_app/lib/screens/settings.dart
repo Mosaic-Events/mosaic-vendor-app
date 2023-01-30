@@ -4,6 +4,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:vendor_app/screens/business_setting.dart';
 import 'package:vendor_app/screens/category_setting.dart';
 import 'package:vendor_app/screens/promotion_banners.dart';
+import 'package:vendor_app/utils/appbar.dart';
 import 'package:vendor_app/utils/bottom_appbar.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -12,11 +13,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Setting Screen"),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: MyAppBar(title: 'Setting Screen'),
       body: SettingsList(
         sections: [
           SettingsSection(

@@ -8,6 +8,7 @@ import 'package:vendor_app/screens/service_detail_screen.dart';
 
 import '../forms/add_update_business.dart';
 import '../services/cloud_services.dart';
+import '../utils/appbar.dart';
 import '../utils/my_card.dart';
 
 class BusinessSettingScreen extends StatelessWidget {
@@ -19,11 +20,7 @@ class BusinessSettingScreen extends StatelessWidget {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Manage Business'),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: MyAppBar(title: 'Manage Business'),
       body: StreamBuilder<QuerySnapshot>(
         stream: cloudService.businessCollection
             .where('owner.uid', isEqualTo: userId)
@@ -36,13 +33,11 @@ class BusinessSettingScreen extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, index) {
-                  final name =
-                      snapshot.data!.docs[index]['businessName'];
+                  final name = snapshot.data!.docs[index]['businessName'];
                   final owner = snapshot.data!.docs[index]['owner'];
                   final UserModel user = UserModel.fromMap(owner);
                   final id = snapshot.data!.docs[index]['businessId'];
-                  final price =
-                      snapshot.data!.docs[index]['initialPrice'];
+                  final price = snapshot.data!.docs[index]['initialPrice'];
                   final imageUrl = snapshot.data!.docs[index]['images'];
                   return InkWell(
                     onTap: () {

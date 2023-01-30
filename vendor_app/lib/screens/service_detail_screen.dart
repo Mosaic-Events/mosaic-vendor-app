@@ -50,6 +50,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
               final owner = data['owner'];
               final images = data['images'];
               final capacity = data['capacity'];
+              final initialPrice = data['initialPrice'];
               final UserModel user = UserModel.fromMap(owner);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,6 +64,13 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   ),
                   Text(
                     user.fullname ?? "null",
+                    style: const TextStyle(
+                      fontSize: 15,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    "Price: $initialPrice",
                     style: const TextStyle(
                       fontSize: 15,
                     ),

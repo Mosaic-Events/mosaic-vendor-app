@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:vendor_app/forms/add_update_category.dart';
 
 import '../services/cloud_services.dart';
+import '../utils/appbar.dart';
 
 class CategorySettingScreen extends StatefulWidget {
   const CategorySettingScreen({Key? key}) : super(key: key);
@@ -20,10 +21,8 @@ class _CategorySettingScreenState extends State<CategorySettingScreen> {
   Widget build(BuildContext context) {
     final cloudService = Provider.of<CloudService>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Manage Category'),
-        centerTitle: true,
-        elevation: 0,
+      appBar: MyAppBar(
+        title: 'Manage Category'
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: cloudService.categoryCollection.snapshots(),

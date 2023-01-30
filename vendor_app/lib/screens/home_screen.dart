@@ -9,6 +9,7 @@ import 'package:vendor_app/models/user_model.dart';
 import 'package:vendor_app/utils/bottom_appbar.dart';
 import 'package:vendor_app/utils/profile_pic.dart';
 
+import '../utils/appbar.dart';
 import '../utils/service_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,10 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     log(currentUser!.uid.toString());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-        centerTitle: true,
-        elevation: 0,
+      appBar: MyAppBar(
+        title: "Home Screen",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
